@@ -52,7 +52,7 @@ local_dramas = (1..2).map{ |i| Drama.make(:category => local) }
 global_dramas = (1..2).map{ |i|  Drama.make(:category => local) }
 
 [local_dramas, global_dramas].flatten.each do |drama|
-  Episode.make(:drama => drama)
+  (1..5).map{ |i| Episode.make(:drama => drama) }
   Sham.reset
 end
 

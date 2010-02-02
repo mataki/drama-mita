@@ -2,17 +2,10 @@
 
 %p
   %strong User:
-  =h @watch.user
+  = link_to h(@watch.user.name), @watch.user
 %p
   %strong Episode:
-  =h @watch.episode
+  = link_to h(@watch.episode.title), @watch.episode
 %p
   %strong Content:
   =h @watch.content
-
-%p
-  = link_to "Edit", edit_watch_path(@watch)
-  |
-  = link_to "Destroy", @watch, :confirm => 'Are you sure?', :method => :delete
-  |
-  = link_to "View All", watches_path

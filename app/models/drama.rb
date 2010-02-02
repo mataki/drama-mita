@@ -3,4 +3,8 @@ class Drama < ActiveRecord::Base
 
   belongs_to :category
   has_many :episodes
+
+  named_scope :populer do
+    {}
+  end
 end

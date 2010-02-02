@@ -1,18 +1,27 @@
 - title "Episode"
 
-%p
-  %strong Drama:
-  =h @episode.drama
-%p
-  %strong Title:
-  =h @episode.title
-%p
-  %strong Num:
-  =h @episode.num
+%h2
+  = h @episode.drama.title
 
-%p
-  = link_to "Edit", edit_episode_path(@episode)
-  |
-  = link_to "Destroy", @episode, :confirm => 'Are you sure?', :method => :delete
-  |
-  = link_to "View All", episodes_path
+%h3
+  #{h @episode.num}話 #{h @episode.title}
+
+- if self_watch = @episode.watches.find_by_user_id(current_user.id)
+  %h2
+    あなたの見た!
+  = render self_watch
+- else
+  - form_for(@episode.watches.build) do |f|
+    = f.hidden_field :episode_id
+    = f.text_field :content
+    = f.submit "見た"
+
+%h2
+  マイミクの見た!
+- @episode.watches.user_id_is(current_user.friends.map(&:id)).each do |watch|
+  = render watch
+
+%h2
+  みんなの見た!
+- @episode.watches.user_id_in(current_user.friends.map(&:id)).each do |watch|
+  = render watch

@@ -1,16 +1,16 @@
 class DramasController < ApplicationController
   def index
-    @dramas = Drama.all
+    @dramas = Drama.populer.all
   end
-  
+
   def show
     @drama = Drama.find(params[:id])
   end
-  
+
   def new
     @drama = Drama.new
   end
-  
+
   def create
     @drama = Drama.new(params[:drama])
     if @drama.save
@@ -20,11 +20,11 @@ class DramasController < ApplicationController
       render :action => 'new'
     end
   end
-  
+
   def edit
     @drama = Drama.find(params[:id])
   end
-  
+
   def update
     @drama = Drama.find(params[:id])
     if @drama.update_attributes(params[:drama])
@@ -34,7 +34,7 @@ class DramasController < ApplicationController
       render :action => 'edit'
     end
   end
-  
+
   def destroy
     @drama = Drama.find(params[:id])
     @drama.destroy
