@@ -1,0 +1,17 @@
+- title "Watches"
+
+%table
+  %tr
+    %th User
+    %th Episode
+    %th Content
+  - for watch in @watches
+    %tr
+      %td= h watch.user
+      %td= h watch.episode
+      %td= h watch.content
+      %td= link_to 'Show', watch
+      %td= link_to 'Edit', edit_watch_path(watch)
+      %td= link_to 'Destroy', watch, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Watch", new_watch_path

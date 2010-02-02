@@ -1,0 +1,15 @@
+- title "Drama"
+
+%p
+  %strong Title:
+  =h @drama.title
+%p
+  %strong Category:
+  =h @drama.category
+
+%p
+  = link_to "Edit", edit_drama_path(@drama)
+  |
+  = link_to "Destroy", @drama, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", dramas_path

@@ -1,0 +1,12 @@
+- form_for @drama do |f|
+  = f.error_messages
+  %p
+    = f.label :title
+    %br
+    = f.text_field :title
+  %p
+    = f.label :category
+    %br
+    = f.text_field :category
+  %p
+    = f.submit "Submit"

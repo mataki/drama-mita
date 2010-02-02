@@ -1,0 +1,18 @@
+- title "Watch"
+
+%p
+  %strong User:
+  =h @watch.user
+%p
+  %strong Episode:
+  =h @watch.episode
+%p
+  %strong Content:
+  =h @watch.content
+
+%p
+  = link_to "Edit", edit_watch_path(@watch)
+  |
+  = link_to "Destroy", @watch, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", watches_path

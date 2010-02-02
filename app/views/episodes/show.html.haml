@@ -1,0 +1,18 @@
+- title "Episode"
+
+%p
+  %strong Drama:
+  =h @episode.drama
+%p
+  %strong Title:
+  =h @episode.title
+%p
+  %strong Num:
+  =h @episode.num
+
+%p
+  = link_to "Edit", edit_episode_path(@episode)
+  |
+  = link_to "Destroy", @episode, :confirm => 'Are you sure?', :method => :delete
+  |
+  = link_to "View All", episodes_path

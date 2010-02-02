@@ -1,0 +1,15 @@
+- title "Dramas"
+
+%table
+  %tr
+    %th Title
+    %th Category
+  - for drama in @dramas
+    %tr
+      %td= h drama.title
+      %td= h drama.category
+      %td= link_to 'Show', drama
+      %td= link_to 'Edit', edit_drama_path(drama)
+      %td= link_to 'Destroy', drama, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Drama", new_drama_path

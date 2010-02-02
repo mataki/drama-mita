@@ -1,0 +1,17 @@
+- title "Episodes"
+
+%table
+  %tr
+    %th Drama
+    %th Title
+    %th Num
+  - for episode in @episodes
+    %tr
+      %td= h episode.drama
+      %td= h episode.title
+      %td= h episode.num
+      %td= link_to 'Show', episode
+      %td= link_to 'Edit', edit_episode_path(episode)
+      %td= link_to 'Destroy', episode, :confirm => 'Are you sure?', :method => :delete
+
+%p= link_to "New Episode", new_episode_path

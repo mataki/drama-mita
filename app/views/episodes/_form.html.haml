@@ -1,0 +1,16 @@
+- form_for @episode do |f|
+  = f.error_messages
+  %p
+    = f.label :drama
+    %br
+    = f.text_field :drama
+  %p
+    = f.label :title
+    %br
+    = f.text_field :title
+  %p
+    = f.label :num
+    %br
+    = f.text_field :num
+  %p
+    = f.submit "Submit"
