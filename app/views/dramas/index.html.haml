@@ -1,9 +1,45 @@
-- title "Dramas"
+- title "ドラマを探す"
 
+%ul
+  %li= link_to "曜日毎に探す", dramas_path(:type => "week")
+  %li= link_to "放送局から探す", dramas_path(:type => "channel")
+  %li= link_to "海外ドラマから探す", dramas_path(:type => "import")
+
+%h2#week 曜日毎に探す
+
+#week_links
+  = link_to "日", "#sun"
+  = link_to "月", "#mon"
+  = link_to "火", "#tue"
+  = link_to "水", "#wed"
+  = link_to "木", "#thu"
+  = link_to "金", "#fri"
+  = link_to "土", "#sat"
+
+%h3#sun 日曜日
+
+%h3#mon 月曜日
+
+%h3#tue 火曜日
+
+%h3#wed 水曜日
+
+%h3#thu 木曜日
+
+%h3#fri 金曜日
+
+%h3#sat 土曜日
+
+%h2#channel 放送局から探す
+
+#channel_links
+  - Channel.each do |key, name|
+    = link_to name, "##{key}"
+
+- Channel.each do |key, name|
+  %h3{:id => "#{key}"}= name
+
+%h2#import 海外ドラマから探す
 - @dramas.each do |drama|
   .drama
     = link_to drama.title, drama
-
-= link_to "曜日毎に探す", dramas_path(:type => "week")
-= link_to "放送局から探す", dramas_path(:type => "channel")
-

@@ -1,5 +1,5 @@
 ActionController::Routing::Routes.draw do |map|
-  map.root :controller => "watches"
+  map.root :controller => "home", :action => "index"
 
   map.resources :watches
 
@@ -10,4 +10,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :users
 
   map.resources :categories
+
+  map.info "/info/:action", :controller => "info"
 end

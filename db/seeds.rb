@@ -28,6 +28,7 @@ end
 Drama.blueprint do
   category
   title
+  channel { Drama::CHANNELS.rand }
 end
 
 Episode.blueprint do
