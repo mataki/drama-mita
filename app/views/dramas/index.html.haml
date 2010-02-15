@@ -1,9 +1,18 @@
 - title "ドラマを探す"
 
 %h2#import #{params[:query]}が含まれるドラマ
-- @dramas.each do |drama|
-  .drama
-    = link_to drama.title, drama
+
+- if @dramas.blank?
+  該当するドラマが見つかりませんでした
+- else
+  - @dramas.each do |drama|
+    .drama
+      = link_to drama.title, drama
+
+%p
+  まだ登録されていないドラマを登録したい場合は、サポートコミュニティーまでご連絡ください。
+  %br
+  = link_to "サポートコミュニティーへ", ""
 
 - form_tag nil, :method => :get do
   = text_field_tag :query
