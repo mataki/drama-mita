@@ -16,10 +16,12 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+  attr_reader :valid_mixi_app_request
+
 private
   # FIXME: mock
   def current_user
-    if params[:opensocial_owner_id]
+    if valid_mixi_app_request
       User.find_by_mixi_id(params[:opensocial_owner_id]) || User.create_by_mixi_id(params[:opensocial_owner_id])
     else
       User.last
@@ -29,6 +31,8 @@ private
   def valid_mixi_app_mobile_request?
     unless OAuth::Signature.verify(request, :consumer_secret => ENV['CONSUMER_SECRET'])
       render "public/500.html"
+    else
+      @valid_mixi_app_request = true
     end
   rescue OAuth::Signature::UnknownSignatureMethod => e
     logger.info e
@@ -38,11 +42,16 @@ private
 
   # FIXME: mock
   def url_for_with_mixi_app_mobile_traverse(args)
-    url = url_for_without_mixi_app_mobile_traverse(args)
-    if params[:opensocial_owner_id]
-      "?url=#{URI.escape(url)}"
+    if valid_mixi_app_request
+      url = url_for_without_mixi_app_mobile_traverse(args)
+      uri = URI.parse(url)
+      unless uri.host
+        root_url = url_for_without_mixi_app_mobile_traverse(:controller => "home", :only_path => false)
+        url = URI.join(root_url, url)
+      end
+      "?url=#{URI.escape(url.to_s)}"
     else
-      url
+      url_for_without_mixi_app_mobile_traverse(args)
     end
   end
   alias_method_chain :url_for, :mixi_app_mobile_traverse
