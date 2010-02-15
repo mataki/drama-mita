@@ -35,4 +35,15 @@ private
   rescue => e
     logger.info e
   end
+
+  # FIXME: mock
+  def url_for_with_mixi_app_mobile_traverse(args)
+    url = url_for_without_mixi_app_mobile_traverse(args)
+    if params[:opensocial_owner_id]
+      "?url=#{URI.escape(url)}"
+    else
+      url
+    end
+  end
+  alias_method_chain :url_for, :mixi_app_mobile_traverse
 end
