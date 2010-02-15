@@ -9,12 +9,6 @@ class Drama < ActiveRecord::Base
     {}
   end
 
-  validates_inclusion_of :channel, :in => Channel.keys
-
-  def self.channels
-    Channel.keys
-  end
-
   def self.current_episodes
     all_dramas = all
     channels.inject({}) do |res, k|

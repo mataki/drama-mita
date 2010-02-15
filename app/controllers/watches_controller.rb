@@ -17,7 +17,7 @@ class WatchesController < ApplicationController
     @watch.user = current_user
     if @watch.save
       flash[:notice] = "Successfully created watch."
-      redirect_to @watch
+      redirect_to @watch.episode
     else
       render :action => 'new'
     end

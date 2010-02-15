@@ -15,10 +15,14 @@
 
       - if show_title?
         %h1=h yield(:title)
-
+      %hr
       = yield
 
+      %hr
       #footer
-        %ul
-          %li= link_to "ホームへ", root_path
-          %li= link_to "ドラマを探す", dramas_path
+        = link_to "・ホーム", root_path
+        %br
+        - if have_wathed? and !current_page?(user_path(current_user))
+          = link_to "・マイページ", user_path(current_user)
+          %br
+        = link_to "・ドラマを探す", dramas_path

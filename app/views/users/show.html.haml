@@ -1,15 +1,16 @@
-- title "User"
+- title "#{h(@user.name)}"
 
-%p
-  %strong Name:
-  =h @user.name
-%p
-  %strong Mixi:
-  =h @user.mixi_id
+.watched_drama_count
+  見たドラマ数: #{@user.watched_dramas.count}
+.watched_count
+  見た数: #{@user.watches.count}
 
-%p
-  = link_to "Edit", edit_user_path(@user)
-  |
-  = link_to "Destroy", @user, :confirm => 'Are you sure?', :method => :delete
-  |
-  = link_to "View All", users_path
+%h2 見た！ドラマ
+- @user.watched_dramas.each do |drama|
+  .drama
+    = link_to h(drama.title), drama
+  .episode
+    最近の見たのは
+    - recent_watches = drama.watches.user_id_is(@user.id).first
+    = link_to h(recent_watches.episode.num_and_title), recent_watches
+  %hr

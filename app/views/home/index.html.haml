@@ -1,21 +1,23 @@
 - title "ホーム"
-
-%h2 放映中のドラマ
 %p
-  あなたの見たドラマを「見た!」しよう
-  = link_to "「見た!」とは", info_path(:mita)
+  あなたの見たドラマをみんなと共有しよう
+  %br
+  = link_to "「あのドラマ見た？」って何？", info_path(:mita)
 
-- Drama.channels.each do |channel|
-  .drama_with_channel
-    - episode = @current_episodes[channel]
-    = channel
-    = link_to episode.drama.title, episode.drama
-    = link_to episode.num_and_title, episode
+- if have_wathed?
+  = link_to "マイページへ", user_path(current_user)
 
-%h2 最近の見た!
+%h2 マイミクの見た!
+%p
+  マイミクが見たドラマが表示されています。<br />
+  同じドラマを見ているマイミクがいたら、あなたも「見た！」して教えてあげよう。
+- @friends_watches.each do |watch|
+  = render watch
+
+%h2 他の人の見た!
+%p
+  あなたの見たドラマを探してみよう。
 - @recent_watches.each do |watch|
   = render watch
 
-%h2 マイミクの見た!
-- @friends_watches.each do |watch|
-  = render watch
+= link_to "他のドラマを探す", dramas_path

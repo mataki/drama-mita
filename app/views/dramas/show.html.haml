@@ -2,11 +2,10 @@
 
 %p
   = h @drama.category.title
-  = h @drama.channel
 
-%ul
-  - @drama.episodes.each do |episode|
-    %li= link_to "#{episode.num} #{episode.title}", episode
+- @drama.episodes.each do |episode|
+  .episode
+    = link_to "・#{h(episode.num_and_title)}", episode
 
 %h2 最近の見た
 - @drama.watches.each do |watch|

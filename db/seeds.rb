@@ -11,9 +11,11 @@ require 'machinist/active_record'
 require 'sham'
 
 Sham.define do
-  title { Faker::Lorem.words.join(' ') }
-  name { Faker::Name.name }
-  content { Faker::Lorem.sentence }
+  title { |index| Faker::Lorem.words.join(' ') }
+  drama_title { |index| %w(24-シーズン1 24-シーズン2 プリズンブレイク-シーズン1 プリズンブレイク-シーズン2).rand + index.to_s }
+  episode_title { |index| %w(mat危機一髪 脱獄の日 奇跡 1時 2時).rand + index.to_s }
+  name { |index| %w(Mat Akihiro Maedana interu kuranuki).rand + index.to_s }
+  content { |index| %w(とってもおもしろかった いまいちだった もう一度みたい この話はいまいちだった 出演者のあのひとが嫌い).rand + index.to_s }
   num { |index| index }
 end
 
@@ -26,15 +28,14 @@ Category.blueprint do
 end
 
 Drama.blueprint do
+  title { Sham.drama_title }
   category
-  title
-  channel { Drama::CHANNELS.rand }
 end
 
 Episode.blueprint do
   drama
   num
-  title
+  title { Sham.episode_title }
 end
 
 Watch.blueprint do
@@ -46,8 +47,8 @@ end
 user = User.make
 friends = (1..3).map{ |i| User.make }
 
-local = Category.make(:title => "国内ドラマ")
-global = Category.make(:title => "海外ドラマ")
+local = Category.make(:title => "アクション")
+global = Category.make(:title => "ヒューマン")
 
 local_dramas = (1..2).map{ |i| Drama.make(:category => local) }
 global_dramas = (1..2).map{ |i|  Drama.make(:category => local) }

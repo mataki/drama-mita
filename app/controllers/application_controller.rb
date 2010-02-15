@@ -11,7 +11,8 @@ class ApplicationController < ActionController::Base
   helper_method :current_user
 
 private
+  # FIXME: mock
   def current_user
-    User.first
+    User.last
   end
 end

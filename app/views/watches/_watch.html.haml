@@ -1,8 +1,11 @@
+= image_tag('pict001.jpg', :style => "float:left")
 .drama_title
   = link_to watch.drama.title, watch.drama
+.episode_info
+  = link_to watch.episode.num_and_title, watch.episode
+.user_name
+  = link_to watch.user.name, watch.user
+.clear_all{:style => 'clear: left;'}
 .watch_content
   = watch.content
-.episode_info
-  = link_to watch.episode.num, watch.episode
-  by
-  = link_to watch.user.name, watch.user
+%hr

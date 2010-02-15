@@ -7,4 +7,9 @@ class User < ActiveRecord::Base
   def friends
     User.id_is_not(self.id)
   end
+
+  # FIXME: mock
+  def watched_dramas
+    Drama.watches_user_id_is(self.id).uniq{ |wache| watche.drama_id }
+  end
 end

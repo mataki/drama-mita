@@ -4,10 +4,6 @@ class Watch < ActiveRecord::Base
   belongs_to :user
   belongs_to :episode
 
-  named_scope :populer do
-    {}
-  end
-
   named_scope :friends do |user|
     {}
   end

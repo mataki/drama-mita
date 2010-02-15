@@ -1,6 +1,11 @@
 class DramasController < ApplicationController
   def index
-    @dramas = Drama.populer.all
+    unless params[:query].blank?
+      @dramas = Drama.title_like(params[:query]).all
+    else
+      @dramas = Drama.populer.all
+      render "populer"
+    end
   end
 
   def show

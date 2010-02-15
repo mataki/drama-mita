@@ -1,11 +1,11 @@
-- title "Watch"
+- title "見た！"
 
-%p
-  %strong User:
+%span.user
   = link_to h(@watch.user.name), @watch.user
-%p
-  %strong Episode:
+  が
+%span.episode
   = link_to h(@watch.episode.title), @watch.episode
-%p
-  %strong Content:
+  を見た！
+%p.comment
+  %strong コメント:
   =h @watch.content

@@ -1,0 +1,17 @@
+- title "人気のドラマ"
+
+%h2#import 人気のドラマ
+- @dramas.each do |drama|
+  .drama
+    .title
+      = link_to drama.title, drama
+    .wathced_count
+      見た数: #{drama.watches.count}
+    .episode_count
+      話数: #{drama.episodes.count}
+  %hr
+
+%h2 ドラマを探す
+- form_tag nil, :method => :get do
+  = text_field_tag :query
+  = submit_tag "探す"
