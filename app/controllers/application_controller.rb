@@ -24,8 +24,12 @@ private
 
   def valid_mixi_app_mobile_request?
     logger.info request.headers.map{|k,v| "{#{k}:#{v}}"}.join(" : ")
-    oauth_request = OAuth::RequestProxy.proxy(request)
-    logger.info OAuth::Signature.sign(oauth_request, :consumer_secret => ENV['CONSUMER_SECRET'])
+    logger.info result = OAuth::Signature.verify(request, :consumer_secret => ENV['CONSUMER_SECRET'])
+    unless result
+      render "public/422.html"
+    end
+  rescue OAuth::Signature::UnknownSignatureMethod => e
+    logger.info e
   rescue => e
     logger.info e
   end
