@@ -12,4 +12,9 @@ class User < ActiveRecord::Base
   def watched_dramas
     Drama.watches_user_id_is(self.id).uniq{ |wache| watche.drama_id }
   end
+
+  # FIXME: mock
+  def self.create_by_mixi_id(mixi_id)
+    self.create(:mixi_id => mixi_id, :name => "てすと1")
+  end
 end

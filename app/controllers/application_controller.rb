@@ -19,14 +19,16 @@ class ApplicationController < ActionController::Base
 private
   # FIXME: mock
   def current_user
-    User.last
+    if params[:opensocial_owner_id]
+      User.find_by_mixi_id(params[:opensocial_owner_id]) || User.create_by_mixi_id(params[:opensocial_owner_id])
+    else
+      User.last
+    end
   end
 
   def valid_mixi_app_mobile_request?
-    logger.info request.headers.map{|k,v| "{#{k}:#{v}}"}.join(" : ")
-    logger.info result = OAuth::Signature.verify(request, :consumer_secret => ENV['CONSUMER_SECRET'])
-    unless result
-      render "public/422.html"
+    unless OAuth::Signature.verify(request, :consumer_secret => ENV['CONSUMER_SECRET'])
+      render "public/500.html"
     end
   rescue OAuth::Signature::UnknownSignatureMethod => e
     logger.info e
