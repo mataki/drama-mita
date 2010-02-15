@@ -1,9 +1,9 @@
 - title "#{h(@user.name)}"
 
 .watched_drama_count
-  見たドラマ数: #{@user.watched_dramas.count}
+  見たドラマ数: #{@user.watched_dramas.size}
 .watched_count
-  見た数: #{@user.watches.count}
+  見た数: #{@user.watches.size}
 
 %h2 見た！ドラマ
 - @user.watched_dramas.each do |drama|
