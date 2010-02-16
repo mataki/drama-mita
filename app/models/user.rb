@@ -17,4 +17,13 @@ class User < ActiveRecord::Base
   def self.create_by_mixi_id(mixi_id)
     self.create(:mixi_id => mixi_id, :name => "てすと1")
   end
+
+  def get_user_data
+    consumer = OAuth::Consumer(ENV['CONSUMER_KEY'], ENV['CONSUMER_SECRET'], { :site => 'http://api.mixi-platform.com/os/0.8' })
+    path = "/people/@me/@self"
+    params = { :xoauth_requestor_id => mixi_id, :format => "json" }
+    url = path + "?" + params.to_query
+    resp = consumer.request(:get, url, nil, { :scheme => :query_string })
+    logger.info resp
+  end
 end

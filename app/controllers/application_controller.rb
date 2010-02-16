@@ -21,12 +21,15 @@ private
   # FIXME: mock
   def current_user
     @current_user ||= if valid_mixi_app_request
-                        User.find_by_mixi_id(params[:opensocial_owner_id]) || User.create_by_mixi_id(params[:opensocial_owner_id])
+                        user = User.find_by_mixi_id(params[:opensocial_owner_id]) || User.create_by_mixi_id(params[:opensocial_owner_id])
+                        user.get_user_data
+                        user
                       else
                         User.mixi_id_null.last
                       end
   end
 
+  # FIXMI: move to /config/initializer/mixi_app_mobile.rb like plugin
   def valid_mixi_app_mobile_request?
     logger.debug request.headers.map{|k,v| "{#{k}:#{v}}"}.join(" : ")
     mixi_request = OAuth::RequestProxy::ActionControllerRequestForMixi.new(request)
