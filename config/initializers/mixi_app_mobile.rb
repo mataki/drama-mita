@@ -14,6 +14,21 @@ module ActionView::Helpers::UrlHelper
   alias_method_chain :link_to, :convert_url_for_mixi_app
 end
 
+module ActionView::Helpers::FormTagHelper
+
+private
+  def html_options_for_form_with_convert_url_for_mixi_app(*args)
+    result = html_options_for_form_without_convert_url_for_mixi_app(*args)
+    if controller.valid_mixi_app_request
+      url = result["action"]
+      url = URI.join(root_url, url).to_s unless URI.parse(url).host
+      result["action"] = "?url=#{URI.escape(url)}"
+    end
+    result
+  end
+  alias_method_chain :html_options_for_form, :convert_url_for_mixi_app
+end
+
 class ActionController::Base
   def redirect_to_full_url_with_convert_url_for_mixi_app(url, status)
     if valid_mixi_app_request
