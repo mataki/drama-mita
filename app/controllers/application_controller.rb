@@ -28,15 +28,15 @@ private
   end
 
   def valid_mixi_app_mobile_request?
-    logger.debug request.headers.map{|k,v| "{#{k}:#{v}}"}.join(" : ")
+    logger.info request.headers.map{|k,v| "{#{k}:#{v}}"}.join(" : ")
     mixi_request = OAuth::RequestProxy::ActionControllerRequestForMixi.new(request, :consumer_secret => ENV['CONSUMER_SECRET'])
-    logger.info OAuth::Signature.signature_base_string(mixi_request)
-    logger.info OAuth::Signature.verify(mixi_request)
+    logger.info OAuth::Signature.signature_base_string(mixi_request, :consumer_secret => ENV['CONSUMER_SECRET'])
+    logger.info OAuth::Signature.verify(mixi_request, :consumer_secret => ENV['CONSUMER_SECRET'])
     logger.info "--------------action_controller_request"
     logger.info OAuth::Signature.sign(request, :consumer_secret => ENV['CONSUMER_SECRET'])
     logger.info OAuth::Signature.signature_base_string(request, :consumer_secret => ENV["CONSUMER_SECRET"])
 
-    unless OAuth::Signature.verify(mixi_request)
+    unless OAuth::Signature.verify(request, :consumer_secret => ENV['CONSUMER_SECRET'])
       render "public/500.html"
     else
       @valid_mixi_app_request = true
