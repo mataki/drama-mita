@@ -39,20 +39,4 @@ private
   rescue => e
     logger.info e
   end
-
-  # FIXME: mock
-  def url_for_with_mixi_app_mobile_traverse(args)
-    if valid_mixi_app_request
-      url = url_for_without_mixi_app_mobile_traverse(args)
-      uri = URI.parse(url)
-      unless uri.host
-        root_url = url_for_without_mixi_app_mobile_traverse(:controller => "home", :only_path => false)
-        url = URI.join(root_url, url)
-      end
-      "?url=#{URI.escape(url.to_s)}"
-    else
-      url_for_without_mixi_app_mobile_traverse(args)
-    end
-  end
-  alias_method_chain :url_for, :mixi_app_mobile_traverse
 end
