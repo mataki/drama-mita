@@ -21,7 +21,6 @@ private
   # FIXME: mock
   def current_user
     if valid_mixi_app_request
-      logger.info request.headers.map{|k,v| "{#{k}:#{v}}"}.join(" : ")
       User.find_by_mixi_id(params[:opensocial_owner_id]) || User.create_by_mixi_id(params[:opensocial_owner_id])
     else
       User.last
@@ -30,6 +29,7 @@ private
 
   def valid_mixi_app_mobile_request?
     unless OAuth::Signature.verify(request, :consumer_secret => ENV['CONSUMER_SECRET'])
+      logger.info request.headers.map{|k,v| "{#{k}:#{v}}"}.join(" : ")
       render "public/500.html"
     else
       @valid_mixi_app_request = true
