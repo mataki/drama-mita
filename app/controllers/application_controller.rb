@@ -21,6 +21,7 @@ private
   # FIXME: mock
   def current_user
     if valid_mixi_app_request
+      logger.info request.headers.map{|k,v| "{#{k}:#{v}}"}.join(" : ")
       User.find_by_mixi_id(params[:opensocial_owner_id]) || User.create_by_mixi_id(params[:opensocial_owner_id])
     else
       User.last
