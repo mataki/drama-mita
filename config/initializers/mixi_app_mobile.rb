@@ -1,3 +1,5 @@
+require 'oauth/request_proxy/action_controller_request'
+
 module ActionView::Helpers::UrlHelper
 
   def link_to_with_convert_url_for_mixi_app(*args)
@@ -39,4 +41,14 @@ class ActionController::Base
     redirect_to_full_url_without_convert_url_for_mixi_app(url, status)
   end
   alias_method_chain :redirect_to_full_url, :convert_url_for_mixi_app
+end
+
+module OAuth::RequestProxy
+  class ActionControllerRequestForMixi < ActionControllerRequest
+    MIXI_PARAMETERS = OAuth::PARAMETERS + %w(opensocial_app_id opensocial_owner_id)
+    def parameters_for_signature
+      result = super
+      result.select{ |k,v| MIXI_PARAMETERS.include?(k) }
+    end
+  end
 end
