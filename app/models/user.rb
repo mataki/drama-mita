@@ -1,5 +1,5 @@
 class User < ActiveRecord::Base
-  attr_accessible :name, :mixi_id
+  attr_accessible :name, :mixi_id, :profile_image_url
 
   has_many :watches
 
