@@ -5,7 +5,7 @@ class Watch < ActiveRecord::Base
   belongs_to :episode
 
   alias_scope :friends, lambda { |user|
-    user_id_is(user.friend_ids_arr)
+    user_mixi_id_is(user.friend_ids_arr)
   }
 
   alias_scope :not_user, lambda { |user|
