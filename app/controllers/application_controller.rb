@@ -21,9 +21,7 @@ private
   # FIXME: mock
   def current_user
     @current_user ||= if valid_mixi_app_request
-                        user = User.find_by_mixi_id(params[:opensocial_owner_id]) || User.create_by_mixi_id(params[:opensocial_owner_id])
-                        user.get_user_data
-                        user
+                        User.find_by_mixi_id(params[:opensocial_owner_id]) || User.create_by_mixi_id!(params[:opensocial_owner_id])
                       else
                         User.last
                       end
