@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
 
   def get_user_data
     consumer = OAuth::Consumer.new(ENV['CONSUMER_KEY'], ENV['CONSUMER_SECRET'], { :site => 'http://api.mixi-platform.com/os/0.8' })
-    path = "/people/@me/@self"
+    path = "http://api.mixi-platform.com/os/0.8/people/@me/@self"
     params = { :xoauth_requestor_id => mixi_id, :format => "json" }
     url = path + "?" + params.to_query
     logger.info "url: #{url}"
