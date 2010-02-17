@@ -5,7 +5,7 @@
     = link_to "・#{h(episode.num_and_title)}", episode
 
 %h2 マイミクの見た!
-- friends_watches = @drama.watches.friends(current_user)
+- friends_watches = @drama.watches.friends(current_user).all(:limit => 3, :include => [:user, {:episode => :drama} ])
 - unless friends_watches.blank?
   - friends_watches.each do |watch|
     = render watch
@@ -13,5 +13,5 @@
   まだマイミクの誰も見ていないお話です。
 
 %h2 みんなの見た!
-- @drama.watches.user_id_is_not(current_user.id).each do |watch|
+- @drama.watches.user_id_is_not(current_user.id).all(:limit => 3, :include => [:user, {:episode => :drama} ]).each do |watch|
   = render watch

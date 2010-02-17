@@ -52,3 +52,26 @@ module OAuth::RequestProxy
     end
   end
 end
+
+module MixiAppMobileController
+  def self.included(klass)
+    klass.class_eval do
+      before_filter :valid_mixi_app_mobile_request?
+      helper_method :current_user
+      attr_reader :valid_mixi_app_request
+    end
+  end
+
+  def valid_mixi_app_mobile_request?
+    mixi_request = OAuth::RequestProxy::ActionControllerRequestForMixi.new(request)
+    unless OAuth::Signature.verify(mixi_request, :consumer_secret => ENV['CONSUMER_SECRET'])
+      render "public/500.html"
+    else
+      @valid_mixi_app_request = true
+    end
+  rescue OAuth::Signature::UnknownSignatureMethod => e
+    logger.info e
+  rescue => e
+    logger.info e
+  end
+end
