@@ -25,7 +25,7 @@ private
                         user.get_user_data
                         user
                       else
-                        User.mixi_id_null.last
+                        User.last
                       end
   end
 

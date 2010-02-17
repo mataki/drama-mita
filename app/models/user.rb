@@ -15,7 +15,8 @@ class User < ActiveRecord::Base
 
   # FIXME: mock
   def self.create_by_mixi_id(mixi_id)
-    self.create(:mixi_id => mixi_id, :name => get_user_data(mixi_id)["displayName"])
+    user_data = get_user_data(mixi_id)
+    self.create(:mixi_id => mixi_id, :name => user_data["displayName"], :profile_image_url => user_data["thumbnailUrl"])
   end
 
   def self.get_user_data(mid)
