@@ -44,9 +44,6 @@ Watch.blueprint do
   content
 end
 
-user = User.make
-friends = (1..3).map{ |i| User.make }
-
 local = Category.make(:title => "アクション")
 global = Category.make(:title => "ヒューマン")
 
@@ -58,8 +55,11 @@ global_dramas = (1..2).map{ |i|  Drama.make(:category => local) }
   Sham.reset
 end
 
-episode = local_dramas.rand.episodes.rand
-Watch.make(:episode => episode, :user => user)
+# user = User.make
+# friends = (1..3).map{ |i| User.make }
 
-episode = local_dramas.rand.episodes.rand
-Watch.make(:episode => episode, :user => friends.first)
+# episode = local_dramas.rand.episodes.rand
+# Watch.make(:episode => episode, :user => user)
+
+# episode = local_dramas.rand.episodes.rand
+# Watch.make(:episode => episode, :user => friends.first)
