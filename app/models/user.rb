@@ -25,8 +25,8 @@ class User < ActiveRecord::Base
     url = path + "?" + params.to_query
     logger.info "url: #{url}"
     resp = consumer.request(:get, url, nil, { :scheme => :query_string })
-    logger.info "body: " + resp.body
-    logger.info "header: " + resp.to_hash
+    logger.info "body: #{resp.body}"
+    logger.info "header: #{resp.to_hash}"
     logger.info resp
   end
 end
