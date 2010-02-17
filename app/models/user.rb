@@ -23,7 +23,10 @@ class User < ActiveRecord::Base
     path = "/people/@me/@self"
     params = { :xoauth_requestor_id => mixi_id, :format => "json" }
     url = path + "?" + params.to_query
+    logger.info "url: #{url}"
     resp = consumer.request(:get, url, nil, { :scheme => :query_string })
+    logger.info "body: " + resp.body
+    logger.info "header: " + resp.to_hash
     logger.info resp
   end
 end
