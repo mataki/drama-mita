@@ -1,5 +1,5 @@
-!!! XML
-!!! Mobile
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE html PUBLIC "-//i-mode group (ja)//DTD XHTML i-XHTML(Locale/Ver.=ja/1.0) 1.0//EN" "i-xhtml_4ja_10.dtd">
 %html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => "ja", 'xml:lang' => "ja" }
 
   %head
@@ -19,9 +19,9 @@
 
       %hr
       #footer
-        = link_to "ãƒ»ãƒ›ãƒ¼ãƒ ", root_path
+        = link_to "Eƒz[ƒ€", root_path
         %br
         - if have_wathed? and !current_page?(user_path(current_user))
-          = link_to "ãƒ»ãƒã‚¤ãƒšãƒ¼ã‚¸", user_path(current_user)
+          = link_to "Eƒ}ƒCƒy[ƒW", user_path(current_user)
           %br
-        = link_to "ãƒ»ãƒ‰ãƒ©ãƒã‚’æ¢ã™", dramas_path
+        = link_to "Eƒhƒ‰ƒ}‚ğ’T‚·", dramas_path
