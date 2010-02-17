@@ -21,6 +21,8 @@ end
 
 User.blueprint do
   name
+  mixi_id { Sham.num }
+  profile_image_url { "http://img.mixi.jp/img/basic/common/noimage_member76.gif" }
 end
 
 Category.blueprint do
@@ -55,8 +57,8 @@ global_dramas = (1..2).map{ |i|  Drama.make(:category => local) }
   Sham.reset
 end
 
-# user = User.make
-# friends = (1..3).map{ |i| User.make }
+user = User.make
+friends = (1..3).map{ |i| User.make(:friend_ids => "#{user.mixi_id}") }
 
 # episode = local_dramas.rand.episodes.rand
 # Watch.make(:episode => episode, :user => user)

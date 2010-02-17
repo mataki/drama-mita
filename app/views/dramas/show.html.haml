@@ -1,12 +1,17 @@
 - title h @drama.title
 
-%p
-  = h @drama.category.title
-
 - @drama.episodes.each do |episode|
   .episode
     = link_to "・#{h(episode.num_and_title)}", episode
 
-%h2 最近の見た
-- @drama.watches.each do |watch|
+%h2 マイミクの見た!
+- friends_watches = @drama.watches.friends(current_user)
+- unless friends_watches.blank?
+  - friends_watches.each do |watch|
+    = render watch
+- else
+  まだマイミクの誰も見ていないお話です。
+
+%h2 みんなの見た!
+- @drama.watches.user_id_is_not(current_user.id).each do |watch|
   = render watch
