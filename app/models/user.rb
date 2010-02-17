@@ -15,16 +15,20 @@ class User < ActiveRecord::Base
 
   # FIXME: mock
   def self.create_by_mixi_id(mixi_id)
-    self.create(:mixi_id => mixi_id, :name => get_user_data["displayName"])
+    self.create(:mixi_id => mixi_id, :name => get_user_data(mixi_id)["displayName"])
   end
 
-  def get_user_data
+  def self.get_user_data(mid)
     return @self_data if @self_data
     consumer = OAuth::Consumer.new(ENV['CONSUMER_KEY'], ENV['CONSUMER_SECRET'])
     path = "http://api.mixi-platform.com/os/0.8/people/@me/@self"
-    params = { :xoauth_requestor_id => mixi_id, :format => "json" }
+    params = { :xoauth_requestor_id => mid, :format => "json" }
     url = path + "?" + params.to_query
     resp = consumer.request(:get, url, nil, { :scheme => :query_string })
     @self_data = JSON.parse(resp.body)["entry"]
+  end
+
+  def get_user_data
+    self.class.get_user_data(self.mixi_id)
   end
 end
