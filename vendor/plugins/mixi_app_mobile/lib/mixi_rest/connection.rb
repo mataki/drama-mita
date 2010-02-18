@@ -15,8 +15,11 @@ module MixiRest
       uri = URI.parse(path)
       uri.query = default_query.update((uri.query||{})).to_query
       url_with_site = URI.join(@@site, uri.to_s).to_s
-      ::Rails.logger.info "[MixiRest] #{method}: #{url_with_site}"
+      ::Rails.logger.info "[MixiRest] request => #{method}: #{url_with_site}"
       resp = @@consumer.request(method, url_with_site, nil, request_options.update(:scheme => :query_string), *arguments)
+      ::Rails.logger.info "[MixiRest] resp => #{resp.inspect}"
+      ::Rails.logger.info "[MixiRest] resp => #{resp.body}"
+      return true if resp.code == "200" and (resp.body.blank? or resp.body == "true")
       Hashie::Mash.new(JSON.parse(resp.body))
     end
   end
