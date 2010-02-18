@@ -1,0 +1,19 @@
+- title "マイページ"
+
+.watched_drama_count
+  見たドラマ数: #{@user.watched_dramas.size}
+.watched_count
+  見た数: #{@user.watches.size}
+
+
+
+#watched_dramas
+  %h2 見た！ドラマ
+  - @user.watched_dramas.each do |drama|
+    .drama
+      %span.watched_rate
+        - if drama.completed?(@user)
+          &#xE6BA;
+        = drama.complete_rate(@user)
+      %span.title
+        = link_to h(drama.title), drama

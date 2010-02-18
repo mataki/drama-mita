@@ -15,4 +15,12 @@ class Drama < ActiveRecord::Base
       res.update(k => all_dramas.rand.episodes.rand)
     end
   end
+
+  def completed?(user)
+    user.watches_count_by_drama(self) >= self.episodes.count
+  end
+
+  def complete_rate(user)
+    "#{user.watches_count_by_drama(self)}/#{self.episodes.count}"
+  end
 end

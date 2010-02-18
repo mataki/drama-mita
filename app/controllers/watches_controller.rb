@@ -16,7 +16,11 @@ class WatchesController < ApplicationController
     @watch = Watch.new(params[:watch])
     @watch.user = current_user
     if @watch.save
-      flash[:notice] = "Successfully created watch."
+      if @watch.drama.completed?(current_user)
+        flash[:notice] = "#{@watch.drama.title}をコンプリートしました！おめでとう！"
+      else
+        flash[:notice] = "見た登録しました"
+      end
       redirect_to @watch.episode
     else
       render :action => 'new'

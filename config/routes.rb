@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :dramas
 
-  map.resources :users
+  map.resources :users, :collection => { :me => :get }
 
   map.resources :categories
 

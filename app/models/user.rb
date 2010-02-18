@@ -25,4 +25,13 @@ class User < ActiveRecord::Base
   def friend_ids_arr
     friend_ids ? friend_ids.split(',') : []
   end
+
+  def watches_count_by_drama(drama)
+    @watches_count_by_drama ||= {}
+    @watches_count_by_drama[drama.id] ||= self.watches.episode_drama_id_is(drama.id).count
+  end
+
+  def watched(episode)
+    self.watches.any?{ |watch| watch.episode_id == episode.id }
+  end
 end

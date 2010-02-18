@@ -21,7 +21,7 @@
       #footer
         = link_to "ホーム", root_path
         %br
-        - if have_wathed? and !current_page?(user_path(current_user))
-          = link_to "マイページ", user_path(current_user)
+        - if have_wathed? and !current_page?(me_users_path)
+          = link_to "マイページ", me_users_path
           %br
         = link_to "ドラマを探す", dramas_path

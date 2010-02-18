@@ -1,8 +1,13 @@
 - title h @drama.title
 
+%p
+  &#xE6BA;
+  あなたが見た話に表示されています。
 - @drama.episodes.each do |episode|
   .episode
     = link_to "・#{h(episode.num_and_title)}", episode
+    - if current_user.watched(episode)
+      &#xE6BA;
 
 %h2 マイミクの見た!
 - friends_watches = @drama.watches.friends(current_user).all(:limit => 3, :include => [:user, {:episode => :drama} ])
