@@ -53,12 +53,14 @@ module OAuth::RequestProxy
 end
 
 module MixiAppMobileController
-  @@reject_invalid_access_enviroment = %w(production)
+  @@reject_invalid_access_enviroments = %w(production)
 
   def self.included(klass)
     klass.class_eval do
       before_filter :valid_mixi_app_mobile_request?
       helper_method :current_user
+
+      # TODO: テスト様にどのように処理を分離するとよいか検討
       attr_reader :valid_mixi_app_request
     end
   end
@@ -66,19 +68,21 @@ module MixiAppMobileController
   def valid_mixi_app_mobile_request?
     mixi_request = OAuth::RequestProxy::ActionControllerRequestForMixi.new(request)
     unless OAuth::Signature.verify(mixi_request, :consumer_secret => ENV['CONSUMER_SECRET'])
-      render "public/500.html"
+      reject_invalid_access
     else
       @valid_mixi_app_request = true
     end
   rescue OAuth::Signature::UnknownSignatureMethod => e
     logger.info e
+    reject_invalid_access
   rescue => e
     logger.info e
+    reject_invalid_access
   end
 
   def reject_invalid_access
-    if @@reject_invalid_access_enviroment.include?(::Rails.env)
-      render "public/403.html", :status => 403
+    if @@reject_invalid_access_enviroments.include?(::Rails.env)
+      render "public/403.html", :status => 403, :layout => false
     end
   end
 end
