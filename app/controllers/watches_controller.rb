@@ -18,6 +18,7 @@ class WatchesController < ApplicationController
     if @watch.save
       if @watch.drama.completed?(current_user)
         flash[:notice] = "#{@watch.drama.title}をコンプリートしました！おめでとう！"
+        MixiRest::Activities.request(current_user.mixi_id, "#{@watch.drama.title}を全部見ました。あなたも見ませんか？", convert_url_for_mixi_app(url_for(@watch.drama)))
       else
         flash[:notice] = "見た登録しました"
       end

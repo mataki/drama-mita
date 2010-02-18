@@ -30,18 +30,6 @@ private
   alias_method_chain :html_options_for_form, :convert_url_for_mixi_app
 end
 
-class ActionController::Base
-  def redirect_to_full_url_with_convert_url_for_mixi_app(url, status)
-    if valid_mixi_app_request
-      logger.debug "convert from #{url}"
-      url = "http://ma.mixi.net/#{params[:opensocial_app_id]}/?url=#{URI.escape(url)}"
-      logger.debug "convert to #{url}"
-    end
-    redirect_to_full_url_without_convert_url_for_mixi_app(url, status)
-  end
-  alias_method_chain :redirect_to_full_url, :convert_url_for_mixi_app
-end
-
 module OAuth::RequestProxy
   class ActionControllerRequestForMixi < ActionControllerRequest
     MIXI_PARAMETERS = OAuth::PARAMETERS + %w(opensocial_app_id opensocial_owner_id)
@@ -58,7 +46,8 @@ module MixiAppMobileController
   def self.included(klass)
     klass.class_eval do
       before_filter :valid_mixi_app_mobile_request?
-      helper_method :current_user
+      helper_method :convert_url_for_mixi_app
+      alias_method_chain :redirect_to_full_url, :convert_url_for_mixi_app
 
       # TODO: テスト様にどのように処理を分離するとよいか検討
       attr_reader :valid_mixi_app_request
@@ -85,4 +74,18 @@ module MixiAppMobileController
       render "public/403.html", :status => 403, :layout => false
     end
   end
+
+  def convert_url_for_mixi_app(url, app_id = params[:opensocial_app_id])
+    "http://ma.mixi.net/#{app_id}/?url=#{URI.escape(url)}"
+  end
+
+  def redirect_to_full_url_with_convert_url_for_mixi_app(url, status)
+    if valid_mixi_app_request
+      logger.debug "convert from #{url}"
+      url = convert_url_for_mixi_app(url)
+      logger.debug "convert to #{url}"
+    end
+    redirect_to_full_url_without_convert_url_for_mixi_app(url, status)
+  end
+
 end

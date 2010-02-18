@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
 
   mobile_filter :hankaku => true
 
+  helper_method :current_user
+
 private
   # FIXME: mock and move to config/initializer/mixi_app_mobile.rb
   def current_user
