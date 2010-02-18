@@ -1,7 +1,6 @@
 require 'oauth/request_proxy/action_controller_request'
 
 module ActionView::Helpers::UrlHelper
-
   def link_to_with_convert_url_for_mixi_app(*args)
     str = link_to_without_convert_url_for_mixi_app(*args)
     if controller.valid_mixi_app_request
@@ -54,6 +53,8 @@ module OAuth::RequestProxy
 end
 
 module MixiAppMobileController
+  @@reject_invalid_access_enviroment = %w(production)
+
   def self.included(klass)
     klass.class_eval do
       before_filter :valid_mixi_app_mobile_request?
@@ -73,5 +74,11 @@ module MixiAppMobileController
     logger.info e
   rescue => e
     logger.info e
+  end
+
+  def reject_invalid_access
+    if @@reject_invalid_access_enviroment.include?(::Rails.env)
+      render "public/403.html", :status => 403
+    end
   end
 end
