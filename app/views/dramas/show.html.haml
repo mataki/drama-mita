@@ -2,12 +2,18 @@
 
 %p
   &#xE6BA;
-  あなたが見た話に表示されています。
+  があなたが見た話に表示されています。
 - @drama.episodes.each do |episode|
   .episode
     = link_to "・#{h(episode.num_and_title)}", episode
     - if current_user.watched(episode)
       &#xE6BA;
+
+- unless @drama.completed?(current_user)
+  - form_for(Watch.new(:drama_id => @drama.id)) do |f|
+    = f.hidden_field :drama_id
+    %p
+      = f.submit "全部見た"
 
 %h2 マイミクの見た!
 - friends_watches = @drama.watches.friends(current_user).all(:limit => 3, :include => [:user, {:episode => :drama} ])

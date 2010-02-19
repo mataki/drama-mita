@@ -7,6 +7,8 @@
 - else
   - @dramas.each do |drama|
     .drama
+      - if drama.completed?(current_user)
+        &#xE6BA;
       = link_to drama.title, drama
 
 %p

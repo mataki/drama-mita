@@ -1,10 +1,13 @@
 = image_tag(watch.user.profile_image_url, :style => "float:left", :align => "left")
-.drama_title
-  = link_to watch.drama.title, watch.drama
-.episode_info
-  = link_to watch.episode.num_and_title, watch.episode
 .user_name
-  = link_to watch.user.name, watch.user
+  = link_to h(watch.user.name), watch.user
+  さん
+- if %w(home).include?(params[:controller])
+  .drama_title
+    = link_to watch.drama.title, watch.drama
+- if %w(home dramas).include?(params[:controller])
+  .episode_info
+    = link_to watch.episode.num_and_title, watch.episode
 %br{:clear => "all"}
 .clear_all{:style => 'clear: both;', :clear => "all"}
 .watch_content

@@ -11,6 +11,6 @@
     = link_to h(drama.title), drama
   .episode
     最近の見たのは
-    - recent_watches = drama.watches.user_id_is(@user.id).first
+    - recent_watches = drama.watches.user_id_is(@user.id).descend_by_updated_at.first
     = link_to h(recent_watches.episode.num_and_title), recent_watches.episode
   %hr

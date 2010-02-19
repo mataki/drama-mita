@@ -3,6 +3,8 @@
 - @dramas.each do |drama|
   .drama
     .title
+      - if drama.completed?(current_user)
+        &#xE6BA;
       = link_to drama.title, drama
     .wathced_count
       見た数: #{drama.watches.count}
