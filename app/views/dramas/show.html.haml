@@ -5,9 +5,15 @@
   があなたが見た話に表示されています。
 - @drama.episodes.each do |episode|
   .episode
-    = link_to "・#{h(episode.num_and_title)}", episode
-    - if current_user.watched(episode)
+    - if watch = current_user.watched(episode)
+      = link_to "#{h(episode.num_and_title)}", episode
       &#xE6BA;
+      = l watch.created_at.to_date, :format => :short
+    - else
+      - form_for(Watch.new(:episode => episode)) do |f|
+        = link_to "#{h(episode.num_and_title)}", episode
+        = f.hidden_field :episode_id
+        = f.submit "見た"
 
 - unless @drama.completed?(current_user)
   - form_for(Watch.new(:drama_id => @drama.id)) do |f|

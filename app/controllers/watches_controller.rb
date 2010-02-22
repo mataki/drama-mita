@@ -1,15 +1,6 @@
 class WatchesController < ApplicationController
-  def index
-    @populer_watches = Watch.populer.all
-    @friends_watches = Watch.friends(current_user).all
-  end
-
   def show
     @watch = Watch.find(params[:id])
-  end
-
-  def new
-    @watch = Watch.new
   end
 
   def create
@@ -33,15 +24,12 @@ class WatchesController < ApplicationController
     end
   end
 
-  def edit
-    @watch = Watch.find(params[:id])
-  end
-
   def update
     @watch = Watch.find(params[:id])
+    raise ActiveRecord::RecordNotFound unless @watch.user == current_user
     if @watch.update_attributes(params[:watch])
       flash[:notice] = "Successfully updated watch."
-      redirect_to @watch
+      redirect_to (@watch and @watch.episode)
     else
       render :action => 'edit'
     end
@@ -49,8 +37,9 @@ class WatchesController < ApplicationController
 
   def destroy
     @watch = Watch.find(params[:id])
+    raise ActiveRecord::RecordNotFound unless @watch.user == current_user
     @watch.destroy
     flash[:notice] = "Successfully destroyed watch."
-    redirect_to watches_url
+    redirect_to (@watch and @watch.episode)
   end
 end

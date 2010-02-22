@@ -5,6 +5,8 @@ class Drama < ActiveRecord::Base
   has_many :episodes
   has_many :watches, :through => :episodes
 
+  cattr_reader :per_page
+  @@per_page = 5
 
   # FIXME: mock
   # HINT

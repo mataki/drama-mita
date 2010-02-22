@@ -8,8 +8,10 @@
 - if %w(home dramas).include?(params[:controller])
   .episode_info
     = link_to watch.episode.num_and_title, watch.episode
+.watch_date
+  登録日:
+  = l watch.created_at.to_date, :format => :short
 %br{:clear => "all"}
 .clear_all{:style => 'clear: both;', :clear => "all"}
 .watch_content
   = watch.content
-%hr

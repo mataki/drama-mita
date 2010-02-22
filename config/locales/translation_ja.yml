@@ -1,0 +1,36 @@
+ja: 
+  activerecord: 
+    models: 
+      category: "カテゴリー"  #g
+      drama: "ドラマ"  #g
+      episode: "エピソード"  #g
+      user: "ユーザー"  #g
+      watch: "腕時計"  #g
+
+    attributes: 
+      category: 
+        title: "タイトル"  #g
+
+      drama: 
+        title: "タイトル"  #g
+        watches: "時計"  #g
+        episodes: "エピソード"  #g
+        category: "カテゴリー"  #g
+
+      episode: 
+        title: "タイトル"  #g
+        num: "テンキー"  #g
+        watches: "時計"  #g
+        drama: "ドラマ"  #g
+
+      user: 
+        name: "名前"  #g
+        profile_image_url: "プロフィール画像URL"  #g
+        friend_ids: "友人のID"  #g
+        watches: "時計"  #g
+
+      watch: 
+        content: "内容"  #g
+        user: "ユーザー"  #g
+        episode: "エピソード"  #g
+

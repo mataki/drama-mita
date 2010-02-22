@@ -32,6 +32,6 @@ class User < ActiveRecord::Base
   end
 
   def watched(episode)
-    self.watches.any?{ |watch| watch.episode_id == episode.id }
+    self.watches.detect{ |watch| watch.episode_id == episode.id }
   end
 end

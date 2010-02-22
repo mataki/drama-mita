@@ -7,13 +7,23 @@
   あなたの見た!
 - if self_watch = @episode.watches.find_by_user_id(current_user.id)
   = render self_watch
+  -#いまいちなので保留
+    - form_for(self_watch) do |f|
+      %p
+        = f.label :content, "コメント"
+        = f.text_field :content
+      %p
+        = f.submit "更新"
+  - form_for(self_watch, :url => watch_path(self_watch), :html => {:method => "delete"}) do |f|
+    %p
+      = f.submit "削除"
 - else
   %p
     まだ登録されていません。もしあなたの見ているドラマであれば見たボタンを押しましょう！
   - form_for(@episode.watches.build) do |f|
     = f.hidden_field :episode_id
     %p
-      = f.label :content, "コメント(空でも可)"
+      = f.label :content, "コメント"
       = f.text_field :content
     %p
       = f.submit "見た"

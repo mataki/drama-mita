@@ -21,7 +21,8 @@ private
     @current_user ||= if valid_mixi_app_request
                         User.find_by_mixi_id(params[:opensocial_owner_id]) || User.create_by_mixi_id!(params[:opensocial_owner_id])
                       else
-                        User.last
+                        user_id = session[:user_id] = params[:user_id] ? params[:user_id] : (session[:user_id] || 1)
+                        User.find(user_id)
                       end
   end
 end

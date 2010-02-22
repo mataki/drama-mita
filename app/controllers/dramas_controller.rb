@@ -1,9 +1,9 @@
 class DramasController < ApplicationController
   def index
     unless params[:query].blank?
-      @dramas = Drama.title_like(params[:query]).descend_by_updated_at.all
+      @dramas = Drama.title_like(params[:query]).descend_by_updated_at.paginate({:page => params[:page]})
     else
-      @dramas = Drama.populer.all
+      @dramas = Drama.populer.paginate({:page => params[:page]})
       render "populer"
     end
   end
