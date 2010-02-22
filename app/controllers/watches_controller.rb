@@ -26,7 +26,6 @@ class WatchesController < ApplicationController
 
   def update
     @watch = Watch.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless @watch.user == current_user
     if @watch.update_attributes(params[:watch])
       flash[:notice] = "Successfully updated watch."
       redirect_to (@watch and @watch.episode)
@@ -37,7 +36,6 @@ class WatchesController < ApplicationController
 
   def destroy
     @watch = Watch.find(params[:id])
-    raise ActiveRecord::RecordNotFound unless @watch.user == current_user
     @watch.destroy
     flash[:notice] = "Successfully destroyed watch."
     redirect_to (@watch and @watch.episode)

@@ -1,7 +1,6 @@
-!!! XML
-<!DOCTYPE html PUBLIC "-//i-mode group (ja)//DTD XHTML i-XHTML(Locale/Ver.=ja/1.0) 1.0//EN" "i-xhtml_4ja_10.dtd">
-%html{ :xmlns => "http://www.w3.org/1999/xhtml", :lang => "ja", 'xml:lang' => "ja" }
-
+<?xml version="1.0" encoding="#{encoding}"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+%html{ :xmlns => "http://www.w3.org/1999/xhtml"}
   %head
     %title
       = h(yield(:title) || "Untitled")
