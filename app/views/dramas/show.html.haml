@@ -1,5 +1,23 @@
 - title h @drama.title
 
+%h2 マイミクの見た！
+- friends_watches = @drama.watches.friends(current_user).all(:limit => 3, :include => [:user, {:episode => :drama} ])
+- unless friends_watches.blank?
+  - friends_watches.each do |watch|
+    = render watch
+- else
+  %p まだマイミクの誰も見ていないお話です。
+
+%h2 みんなの見た！
+- others_watches = @drama.watches.user_id_is_not(current_user.id).all(:limit => 3, :include => [:user, {:episode => :drama} ])
+- unless others_watches.blank?
+  - others_watches.each do |watch|
+    = render watch
+- else
+  %p 登録されていません。
+
+%h2 あなたの見た！
+
 %p
   &#xE6BA;
   があなたが見た話に表示されています。
@@ -20,15 +38,3 @@
     = f.hidden_field :drama_id
     %p
       = f.submit "全部見た"
-
-%h2 マイミクの見た!
-- friends_watches = @drama.watches.friends(current_user).all(:limit => 3, :include => [:user, {:episode => :drama} ])
-- unless friends_watches.blank?
-  - friends_watches.each do |watch|
-    = render watch
-- else
-  まだマイミクの誰も見ていないお話です。
-
-%h2 みんなの見た!
-- @drama.watches.user_id_is_not(current_user.id).all(:limit => 3, :include => [:user, {:episode => :drama} ]).each do |watch|
-  = render watch

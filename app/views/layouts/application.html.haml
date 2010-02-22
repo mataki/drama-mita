@@ -25,4 +25,5 @@
         - if have_wathed? and !current_page?(me_users_path)
           = link_to "マイページ", me_users_path
           %br
-        = link_to "ドラマを探す", dramas_path
+        - unless current_page?(dramas_path)
+          = link_to "ドラマを探す", dramas_path
