@@ -1,16 +1,18 @@
 - title "#{h(@user.name)}"
 
-.watched_drama_count
-  見たドラマ数: #{@user.watched_dramas.size}
-.watched_count
-  見た数: #{@user.watches.size}
+.center{:style=> "text-align:center;", :align => "center"}
+  .watched_drama_count
+    見たドラマ数: #{@user.watched_dramas.size}
+  .watched_count
+    見た数: #{@user.watches.size}
 
-%h2 見た！ドラマ
-- @user.watched_dramas.each do |drama|
-  .drama
-    = link_to h(drama.title), drama
-  .episode
-    最近の見たのは
-    - recent_watches = drama.watches.user_id_is(@user.id).descend_by_updated_at.first
-    = link_to h(recent_watches.episode.num_and_title), recent_watches.episode
-  %hr
+.self_list{:style => "background: #fee;"}
+  %h2{:style => font_size(:large) + "background: #fcc; text-align:center", :align => "center"} 見た！ドラマ
+  - @user.watched_dramas.each do |drama|
+    .drama
+      = link_to h(drama.title), drama
+    .episode
+      最近の見たのは
+      - recent_watches = drama.watches.user_id_is(@user.id).descend_by_updated_at.first
+      = link_to h(recent_watches.episode.num_and_title), recent_watches.episode
+    %br

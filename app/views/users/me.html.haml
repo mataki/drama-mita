@@ -1,12 +1,13 @@
 - title "#{@user.name} さんのマイページ"
 
-.watched_drama_count
-  見たドラマ数: #{@user.watched_dramas.size}
-.watched_count
-  見た数: #{@user.watches.size}
+.center{:style=> "text-align:center;", :align => "center"}
+  .watched_drama_count
+    見たドラマ数: #{@user.watched_dramas.size}
+  .watched_count
+    見た数: #{@user.watches.size}
 
-#watched_dramas
-  %h2 見た！ドラマ
+.self_list{:style => "background: #fee;"}
+  %h2{:style => font_size(:large) + "background: #fcc; text-align:center", :align => "center"} あなたの見た！ドラマ
   - @user.watched_dramas.each do |drama|
     .drama
       %span.watched_rate

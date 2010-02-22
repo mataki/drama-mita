@@ -1,18 +1,19 @@
 - title "人気のドラマ"
 
 - @dramas.each do |drama|
-  .drama
-    .title
+  .drama{:style => "background: #ffe;"}
+    .title{:style => font_size(:large) + "background: #ffc; text-align:center", :align => "center"}
       - if drama.completed?(current_user)
         &#xE6BA;
       = link_to drama.title, drama
     .wathced_count
-      見た数: #{drama.watches.count}
+      &nbsp;&nbsp;&nbsp;見た数: #{drama.watches.count}
     .episode_count
-      話数: #{drama.episodes_count}
-  %hr
+      &nbsp;&nbsp;&nbsp;話数: #{drama.episodes_count}
+  %br
 
-%h2 ドラマを探す
-- form_tag nil, :method => :get do
-  = text_field_tag :query
-  = submit_tag "探す"
+.search_form{:style => "background: #ffe;"}
+  %h2{:style => font_size(:large) + "background: #ffc; text-align:center", :align => "center"} ドラマを探す
+  - form_tag nil, :method => :get do
+    = text_field_tag :query
+    = submit_tag "探す"

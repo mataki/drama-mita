@@ -7,20 +7,24 @@
   = link_to "「あのドラマ見た？」って何？", info_path(:mita)
 
 - if have_wathed?
-  = link_to "マイページへ", me_users_path
+  .center{:style=> "text-align:center;", :align => "center"}
+    = link_to "マイページへ", me_users_path
 
-%h2 マイミクの見た!
-%p
-  マイミクが見たドラマが表示されています。<br />
-  同じドラマを見ているマイミクがいたら、あなたも「見た！」して教えてあげよう。
-- @friends_watches.each do |watch|
-  = render watch
+- unless @friends_watches.blank?
+  .friends_list{:style => "background: #eef;"}
+    %h2{:style => font_size(:large) + "background: #ccf; text-align:center", :align => "center"} マイミクの見た!
+    %p
+      マイミクが見たドラマが表示されています。<br />
+      同じドラマを見ているマイミクがいたら、あなたも「見た！」して教えてあげよう。
+    - @friends_watches.each do |watch|
+      = render watch
 
-%h2 他の人の見た!
-%p
-  あなたの見たドラマを探してみよう。
-- @recent_watches.each do |watch|
-  = render watch
+.others_list{:style => "background: #ffe;"}
+  %h2{:style => font_size(:large) + "background: #ffc; text-align:center", :align => "center"} みんなの見た!
+  %p
+    他の人の見たドラマの中から、あなたの見たドラマを探してみましょう！
+  - @recent_watches.each do |watch|
+    = render watch
 
 %p
   他に登録したいドラマがあれば、ドラマを探してみましょう。

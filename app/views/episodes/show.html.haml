@@ -3,45 +3,47 @@
 %p
   = link_to h(@episode.drama.title), @episode.drama
 
-%h2 マイミクの見た!
-- friends_watches = @episode.watches.friends(current_user).all(:limit => 3, :include => [:user, {:episode => :drama} ])
-- unless friends_watches.blank?
-  - friends_watches.each do |watch|
-    = render watch
-- else
-  %p
-    まだマイミクの誰も見ていないお話です。
+.friends_list{:style => "background: #eef;"}
+  %h2{:style => font_size(:large) + "background: #ccf; text-align:center", :align => "center"} マイミクの見た！
+  - friends_watches = @episode.watches.friends(current_user).all(:limit => 3, :include => [:user, {:episode => :drama} ])
+  - unless friends_watches.blank?
+    - friends_watches.each do |watch|
+      = render watch
+  - else
+    %p
+      まだマイミクの誰も見ていないお話です。
 
-%h2 みんなの見た!
-- others_watches = @episode.watches.user_id_is_not(current_user.id).all(:limit => 3, :include => [:user, {:episode => :drama} ])
-- unless others_watches.blank?
-  - others_watches.each do |watch|
-    = render watch
-- else
-  %p
-    まだ登録されていません。
+.others_list{:style => "background: #ffe;"}
+  %h2{:style => font_size(:large) + "background: #ffc; text-align:center", :align => "center"} みんなの見た!
+  - others_watches = @episode.watches.user_id_is_not(current_user.id).all(:limit => 3, :include => [:user, {:episode => :drama} ])
+  - unless others_watches.blank?
+    - others_watches.each do |watch|
+      = render watch
+  - else
+    %p
+      まだ登録されていません。
 
-%h2 あなたの見た!
-- if self_watch = @episode.watches.find_by_user_id(current_user.id)
-  = render self_watch
-  -#いまいちなので保留
-    - form_for(self_watch) do |f|
+.self_list{:style => "background: #fee;"}
+  %h2{:style => font_size(:large) + "background: #fcc; text-align:center", :align => "center"} あなたの見た！
+  - if self_watch = @episode.watches.find_by_user_id(current_user.id)
+    = render self_watch
+    -#いまいちなので保留
+      - form_for(self_watch) do |f|
+        %p
+          = f.label :content, "コメント"
+          = f.text_field :content
+        %p
+          = f.submit "更新"
+    - form_for(self_watch, :url => watch_path(self_watch), :html => {:method => "delete"}) do |f|
+      %p
+        = f.submit "削除"
+  - else
+    %p
+      まだ登録されていません。もしあなたの見ているドラマであれば見たボタンを押しましょう！
+    - form_for(@episode.watches.build) do |f|
+      = f.hidden_field :episode_id
       %p
         = f.label :content, "コメント"
         = f.text_field :content
       %p
-        = f.submit "更新"
-  - form_for(self_watch, :url => watch_path(self_watch), :html => {:method => "delete"}) do |f|
-    %p
-      = f.submit "削除"
-- else
-  %p
-    まだ登録されていません。もしあなたの見ているドラマであれば見たボタンを押しましょう！
-  - form_for(@episode.watches.build) do |f|
-    = f.hidden_field :episode_id
-    %p
-      = f.label :content, "コメント"
-      = f.text_field :content
-    %p
-      = f.submit "見た"
-
+        = f.submit "見た"

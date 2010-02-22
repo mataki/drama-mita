@@ -1,40 +1,42 @@
 - title h @drama.title
 
-%h2 マイミクの見た！
-- friends_watches = @drama.watches.friends(current_user).all(:limit => 3, :include => [:user, {:episode => :drama} ])
-- unless friends_watches.blank?
-  - friends_watches.each do |watch|
-    = render watch
-- else
-  %p まだマイミクの誰も見ていないお話です。
+.friends_list{:style => "background: #eef;"}
+  %h2{:style => font_size(:large) + "background: #ccf; text-align:center", :align => "center"} マイミクの見た！
+  - friends_watches = @drama.watches.friends(current_user).all(:limit => 3, :include => [:user, {:episode => :drama} ])
+  - unless friends_watches.blank?
+    - friends_watches.each do |watch|
+      = render watch
+  - else
+    %p まだマイミクの誰も見ていないお話です。
 
-%h2 みんなの見た！
-- others_watches = @drama.watches.user_id_is_not(current_user.id).all(:limit => 3, :include => [:user, {:episode => :drama} ])
-- unless others_watches.blank?
-  - others_watches.each do |watch|
-    = render watch
-- else
-  %p 登録されていません。
+.others_list{:style => "background: #ffe;"}
+  %h2{:style => font_size(:large) + "background: #ffc; text-align:center", :align => "center"} みんなの見た!
+  - others_watches = @drama.watches.user_id_is_not(current_user.id).all(:limit => 3, :include => [:user, {:episode => :drama} ])
+  - unless others_watches.blank?
+    - others_watches.each do |watch|
+      = render watch
+  - else
+    %p 登録されていません。
 
-%h2 あなたの見た！
-
-%p
-  &#xE6BA;
-  があなたが見た話に表示されています。
-- @drama.episodes.each do |episode|
-  .episode
-    - if watch = current_user.watched(episode)
-      = link_to "#{h(episode.num_and_title)}", episode
-      &#xE6BA;
-      = l watch.created_at.to_date, :format => :short
-    - else
-      - form_for(Watch.new(:episode => episode)) do |f|
+.self_list{:style => "background: #fee;"}
+  %h2{:style => font_size(:large) + "background: #fcc; text-align:center", :align => "center"} あなたの見た！
+  %p
+    &#xE6BA;
+    があなたが見た話に表示されています。
+  - @drama.episodes.each do |episode|
+    .episode
+      - if watch = current_user.watched(episode)
         = link_to "#{h(episode.num_and_title)}", episode
-        = f.hidden_field :episode_id
-        = f.submit "見た"
+        &#xE6BA;
+        = l watch.created_at.to_date, :format => :short
+      - else
+        - form_for(Watch.new(:episode => episode)) do |f|
+          = link_to "#{h(episode.num_and_title)}", episode
+          = f.hidden_field :episode_id
+          = f.submit "見た"
 
-- unless @drama.completed?(current_user)
-  - form_for(Watch.new(:drama_id => @drama.id)) do |f|
-    = f.hidden_field :drama_id
-    %p
-      = f.submit "全部見た"
+  - unless @drama.completed?(current_user)
+    - form_for(Watch.new(:drama_id => @drama.id)) do |f|
+      = f.hidden_field :drama_id
+      %p
+        = f.submit "全部見た"
