@@ -8,12 +8,9 @@ class Drama < ActiveRecord::Base
   cattr_reader :per_page
   @@per_page = 5
 
-  # FIXME: mock
-  # HINT
-  # Drama.all(:select => "sum(watches_count) AS sum_watches_count, drama_id AS drama_id", :joins => :episodes, :group => :drama_id, :order => "sum_watches_count DESC").map{|d| [d.drama_id, d.sum_watches_count] }
-  named_scope :populer do
-    {}
-  end
+  named_scope :populer, lambda {
+    {:select => "sum(watches_count) AS sum_watches_count, dramas.*", :joins => :episodes, :group => "drama_id", :order => "sum_watches_count DESC"}
+  }
 
   def self.current_episodes
     all_dramas = all
