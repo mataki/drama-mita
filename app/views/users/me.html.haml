@@ -7,12 +7,25 @@
     見た数: #{@user.watches.size}
 
 .self_list{:style => "background: #fee;"}
-  %h2{:style => font_size(:large) + "background: #fcc; text-align:center", :align => "center"} あなたの見た！ドラマ
-  - @user.watched_dramas.each do |drama|
-    .drama
-      %span.watched_rate
-        - if drama.completed?(@user)
-          &#xE6BA;
-        = drama.complete_rate(@user)
-      %span.title
-        = link_to h(drama.title), drama
+  %h2{:style => font_size(:large) + "background: #fcc; text-align:center", :align => "center"} コンプリート!ドラマ
+  - completed_dramas = @user.completed_dramas
+  - if completed_dramas
+    - completed_dramas.each do |drama|
+      .drama{:style => "float:left;margin: 5px;", :float => "left"}
+        .title_image
+          = link_to title_image_tag(drama), drama
+    %br{:clear => "all"}
+  - else
+    %p まだ全部見たドラマはありません。
+
+  - unless (watching_dramas = @user.watched_dramas_without_completed).blank?
+    %h2{:style => font_size(:large) + "background: #fcc; text-align:center", :align => "center"} 途中のドラマ
+    - watching_dramas.each do |drama|
+      .drama
+        %span.watched_rate
+          - if drama.completed?(@user)
+            &#xE6BA;
+          = drama.complete_rate(@user)
+        %span.title
+          = link_to drama.title, drama
+      %br

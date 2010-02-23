@@ -10,7 +10,15 @@ class User < ActiveRecord::Base
   end
 
   def watched_dramas
-    Drama.watches_user_id_is(self.id).uniq{ |wache| watche.drama_id }
+    @watched_dramas ||= Drama.watches_user_id_is(self.id).uniq{ |wache| watche.drama_id }
+  end
+
+  def watched_dramas_without_completed
+    watched_dramas.select{ |drama| !drama.completed?(self) }
+  end
+
+  def completed_dramas
+    watched_dramas.select{ |drama| drama.completed?(self) }
   end
 
   def self.create_by_mixi_id!(mixi_id)
