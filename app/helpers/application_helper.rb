@@ -3,7 +3,7 @@ module ApplicationHelper
 
   def have_wathed?
     return @result unless @result.nil?
-    @result = (current_user.watches.count > 0)
+    @result = (current_user.watches_count > 0)
   end
 
   def encoding

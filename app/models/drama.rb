@@ -20,16 +20,18 @@ class Drama < ActiveRecord::Base
   end
 
   def completed?(user)
-    user.watches_count_by_drama(self) >= self.episodes.count
+    user.watches_count_by_drama(self) >= self.episodes_count
   end
 
   def complete_rate(user)
-    "#{user.watches_count_by_drama(self)}/#{self.episodes.count}"
+    "#{user.watches_count_by_drama(self)}/#{self.episodes_count}"
   end
 
   def create_all_episodes_watches(user)
-    episodes.map do |episode|
-      episode.watches.create(:user => user)
+    self.class.transaction do
+      episodes.map do |episode|
+        episode.watches.create(:user => user)
+      end
     end
   end
 end
