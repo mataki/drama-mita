@@ -14,4 +14,8 @@ module ApplicationHelper
       "UTF-8"
     end
   end
+
+  def logo_image_path
+    (::Rails.env == "production") ? '/images/drama-mita-logo.jpg' : '/images/drama-mita-logo-st.jpg'
+  end
 end

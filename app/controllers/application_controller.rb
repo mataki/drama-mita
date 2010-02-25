@@ -15,14 +15,22 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
+  before_filter :require_user
+
 private
   # FIXME: mock and move to config/initializer/mixi_app_mobile.rb
   def current_user
     @current_user ||= if valid_mixi_app_request
-                        User.find_by_mixi_id(params[:opensocial_owner_id]) || User.create_by_mixi_id!(params[:opensocial_owner_id])
+                        User.find_by_mixi_id(params[:opensocial_owner_id])
                       else
                         user_id = session[:user_id] = params[:user_id] ? params[:user_id] : (session[:user_id] || 1)
                         User.find(user_id)
                       end
+  end
+
+  def require_user
+    unless current_user
+      redirect_to info_url(:welcome)
+    end
   end
 end

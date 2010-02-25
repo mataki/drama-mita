@@ -22,9 +22,17 @@
 
 .self_list{:style => "background: #fee;"}
   %h2{:style => font_size(:large) + "background: #fcc; text-align:center", :align => "center"} あなたの見た！
+
   %p
     &#xE6BA;
     があなたが見た話に表示されています。
+
+  - unless @drama.completed?(current_user)
+    - form_for(Watch.new(:drama_id => @drama.id)) do |f|
+      = f.hidden_field :drama_id
+      %p
+        = f.submit "全部見た"
+
   - @drama.episodes.each do |episode|
     .episode
       - if watch = current_user.watched(episode)
@@ -37,8 +45,3 @@
           = f.hidden_field :episode_id
           = f.submit "見た"
 
-  - unless @drama.completed?(current_user)
-    - form_for(Watch.new(:drama_id => @drama.id)) do |f|
-      = f.hidden_field :drama_id
-      %p
-        = f.submit "全部見た"

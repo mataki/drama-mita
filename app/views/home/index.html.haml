@@ -1,13 +1,12 @@
 - title "あのドラマみた？", false
 
 #drama_mita_logo{:style => "text-align:center;", :align => "center"}
-  - image_path = (::Rails.env == "production") ? '/images/drama-mita-logo.jpg' : '/images/drama-mita-logo-st.jpg'
-  = image_tag(image_path, :size => "100x100")
+  = image_tag(logo_image_path, :size => "100x100")
 
 %p
   あなたの見たドラマをみんなと共有しよう
   %br
-  = link_to "「あのドラマ見た？」って何？", info_path(:mita)
+  = link_to "「あのドラマ見た？」って何？", info_path(:welcome)
 
 - if have_wathed?
   .center{:style=> "text-align:center;", :align => "center"}

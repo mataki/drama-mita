@@ -6,7 +6,7 @@ module MixiRest
 
     def me_self
       resp = fetch("/@me/@self")
-      resp.entry
+      resp.entry if resp
     end
     memoize :me_self
 
