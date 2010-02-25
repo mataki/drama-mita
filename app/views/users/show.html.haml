@@ -1,10 +1,14 @@
 - title "#{h(@user.name)} さん"
 
-.center{:style=> "text-align:center;", :align => "center"}
-  .watched_drama_count
-    見たドラマ数: #{@user.watched_dramas.size}
-  .watched_count
-    見た数: #{@user.watches.size}
+.user_info
+  = image_tag(@user.profile_image_url, :style => "float:left;margin: 0px 5px;", :align => "left")
+  %span.watched_drama_count
+    見た！ドラマ数: #{@user.watched_dramas.size}
+  %br
+  %span.watched_count
+    見た！数&nbsp;&nbsp;&nbsp;&nbsp;: #{@user.watches.size}
+  .clear_all{:style => 'clear: both;', :clear => "all"}
+  %br{:style => 'clear: both;', :clear => "all"}
 
 #self_list{:style => "background-color: #fee;"}
   %h2{:style => font_size(:large) + "background-color: #fcc; text-align:center", :align => "center"} 見た！ドラマ
