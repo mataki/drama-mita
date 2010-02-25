@@ -25,10 +25,10 @@
       %hr
       #footer
         - unless current_page?(root_path)
-          = link_to "ホーム", root_path
+          = link_to "&#xE6E2;ホーム", root_path, :accesskey => '1'
           %br
         - if have_wathed? and !current_page?(me_users_path)
-          = link_to "マイページ", me_users_path
+          = link_to "&#xE6E4;マイページ", me_users_path, :accesskey => '3'
           %br
         - unless current_page?(dramas_path)
-          = link_to "ドラマを探す", dramas_path
+          = link_to "&#xE6E6;ドラマを探す", dramas_path, :accesskey => '5'
