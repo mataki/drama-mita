@@ -2,8 +2,8 @@
 
 - drama_title_image(@drama)
 
-#friends_list{:style => "background: #eef;"}
-  %h2{:style => font_size(:large) + "background: #ccf; text-align:center", :align => "center"} マイミクの見た！
+#friends_list{:style => "background-color: #eef;"}
+  %h2{:style => font_size(:large) + "background-color: #ccf; text-align:center", :align => "center"} マイミクの見た！
   - friends_watches = @drama.watches.friends(current_user).all(:limit => 3, :include => [:user, {:episode => :drama} ])
   - unless friends_watches.blank?
     - friends_watches.each do |watch|
@@ -11,8 +11,8 @@
   - else
     %p まだマイミクの誰も見ていないお話です。
 
-#others_list{:style => "background: #ffe;"}
-  %h2{:style => font_size(:large) + "background: #ffc; text-align:center", :align => "center"} みんなの見た!
+#others_list{:style => "background-color: #ffe;"}
+  %h2{:style => font_size(:large) + "background-color: #ffc; text-align:center", :align => "center"} みんなの見た!
   - others_watches = @drama.watches.user_id_is_not(current_user.id).all(:limit => 3, :include => [:user, {:episode => :drama} ])
   - unless others_watches.blank?
     - others_watches.each do |watch|
@@ -20,8 +20,8 @@
   - else
     %p 登録されていません。
 
-#self_list{:style => "background: #fee;"}
-  %h2{:style => font_size(:large) + "background: #fcc; text-align:center", :align => "center"} あなたの見た！
+#self_list{:style => "background-color: #fee;"}
+  %h2{:style => font_size(:large) + "background-color: #fcc; text-align:center", :align => "center"} あなたの見た！
 
   %p
     &#xE6BA;

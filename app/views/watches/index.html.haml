@@ -1,13 +1,13 @@
 - drama_title_image(@episode.drama)
 - title "#{h @episode.num}話 #{h @episode.title}"
 
-.others_list{:style => "background: #ffe;"}
-  %h2{:style => font_size(:large) + "background: #ffc; text-align:center", :align => "center"} みんなの見た!
+.others_list{:style => "background-color: #ffe;"}
+  %h2{:style => font_size(:large) + "background-color: #ffc; text-align:center", :align => "center"} みんなの見た!
   - others_watches = @episode.watches.content_not_null.descend_by_updated_at.all(:limit => 30,:include => [:user, {:episode => :drama} ])
   - unless others_watches.blank?
     - others_watches.each do |watch|
       .watch
-        .name{:style => font_size(:large) + "background: #ffc; text-align:center", :align => "center"}
+        .name{:style => font_size(:large) + "background-color: #ffc; text-align:center", :align => "center"}
           = link_to h(watch.user.name), watch.user
           さん
         .comment
