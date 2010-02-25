@@ -17,6 +17,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :require_user
 
+  after_filter :set_content_type_for_docomo
+
 private
   # FIXME: mock and move to config/initializer/mixi_app_mobile.rb
   def current_user
@@ -31,6 +33,13 @@ private
   def require_user
     unless current_user
       redirect_to info_url(:welcome)
+    end
+  end
+
+  def set_content_type_for_docomo
+    mobile = self.request.mobile
+    if mobile && mobile.instance_of?(Jpmobile::Mobile::Docomo)
+      self.response.content_type = "application/xhtml+xml"
     end
   end
 end
