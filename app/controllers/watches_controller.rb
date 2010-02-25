@@ -20,7 +20,7 @@ class WatchesController < ApplicationController
         if before_count < 1
           MixiRest::Activities.request(current_user.mixi_id, "#{drama.title}を見たよ(#{drama.watched_users_count}人目)。あなたはあのドラマみた？", convert_url_for_mixi_app(url_for(drama)))
         end
-        flash[:notice] = "見た登録しました"
+        flash[:notice] = "見た！を登録しました"
       end
       redirect_to (@watch and @watch.episode) || drama
     else
@@ -31,7 +31,7 @@ class WatchesController < ApplicationController
   def update
     @watch = Watch.find(params[:id])
     if @watch.update_attributes(params[:watch])
-      flash[:notice] = "Successfully updated watch."
+      flash[:notice] = "コメントを更新しました"
       redirect_to (@watch and @watch.episode)
     else
       render :action => 'edit'
@@ -41,7 +41,7 @@ class WatchesController < ApplicationController
   def destroy
     @watch = Watch.find(params[:id])
     @watch.destroy
-    flash[:notice] = "Successfully destroyed watch."
+    flash[:notice] = "見た！を削除しました"
     redirect_to (@watch and @watch.episode)
   end
 end

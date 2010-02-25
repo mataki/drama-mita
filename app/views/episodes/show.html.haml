@@ -23,7 +23,7 @@
         = f.label :content, "コメント"
         = f.text_field :content
       %p
-        = f.submit "見た"
+        = f.submit "見た！"
 
 #friends_list{:style => "background-color: #eef;"}
   %h2{:style => font_size(:large) + "background-color: #ccf; text-align:center", :align => "center"} マイミクの見た！
@@ -36,7 +36,7 @@
       まだマイミクの誰も見ていないお話です。
 
 #others_list{:style => "background-color: #ffe;"}
-  %h2{:style => font_size(:large) + "background-color: #ffc; text-align:center", :align => "center"} みんなの見た!
+  %h2{:style => font_size(:large) + "background-color: #ffc; text-align:center", :align => "center"} みんなの見た！
   - others_watches = @episode.watches.user_id_is_not(current_user.id).all(:limit => 3, :include => [:user, {:episode => :drama} ])
   - unless others_watches.blank?
     - others_watches.each do |watch|
