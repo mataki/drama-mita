@@ -1,7 +1,5 @@
+- drama_title_image(@episode.drama)
 - title "#{h @episode.num}話 #{h @episode.title}"
-
-%p
-  = link_to h(@episode.drama.title), @episode.drama
 
 .friends_list{:style => "background: #eef;"}
   %h2{:style => font_size(:large) + "background: #ccf; text-align:center", :align => "center"} マイミクの見た！
