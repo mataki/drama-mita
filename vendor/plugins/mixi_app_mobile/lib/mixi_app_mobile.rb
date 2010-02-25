@@ -1,3 +1,4 @@
+require "oauth"
 require 'oauth/request_proxy/action_controller_request'
 
 module ActionView::Helpers::UrlHelper
