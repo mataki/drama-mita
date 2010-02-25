@@ -1,13 +1,20 @@
-- title "Watches"
+- title "#{h @episode.num}話 #{h @episode.title}"
 
-%h2
-  人気の見た!
-- @populer_watches.each do |watch|
-  = render watch
+.others_list{:style => "background: #ffe;"}
+  %h2{:style => font_size(:large) + "background: #ffc; text-align:center", :align => "center"} みんなの見た!
+  - others_watches = @episode.watches.content_not_null.descend_by_updated_at.all(:limit => 30,:include => [:user, {:episode => :drama} ])
+  - unless others_watches.blank?
+    - others_watches.each do |watch|
+      .watch
+        .name{:style => font_size(:large) + "background: #ffc; text-align:center", :align => "center"}
+          = link_to h(watch.user.name), watch.user
+          さん
+        .comment
+          = h(watch.content)
+      %br
 
-%h2
-  マイミクの見た!
-- @friends_watches.each do |watch|
-  = render watch
+  - else
+    %p
+      コメントがまだありません。
 
-= link_to "ドラマを探す", dramas_path
+= link_to "戻る", @episode

@@ -1,6 +1,6 @@
 class WatchesController < ApplicationController
-  def show
-    @watch = Watch.find(params[:id])
+  def index
+    @episode = Episode.find(params[:episode_id])
   end
 
   def create
