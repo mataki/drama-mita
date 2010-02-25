@@ -1,6 +1,6 @@
 - hide_content ||= false
 .watch
-  = image_tag(watch.user.profile_image_url, :style => "float:left", :align => "left")
+  = image_tag(watch.user.profile_image_url, :style => "float:left;", :align => "left")
   .info{:style => "margin-left: 85px;"}
     .user_name
       = link_to h(watch.user.name), watch.user
