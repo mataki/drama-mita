@@ -16,7 +16,7 @@
         見た！率:
         %br
         &nbsp;
-        = link_to drama.completed?(@user) ? "&#xE6BA;コンプリート" : drama.complete_rate(@user), drama_path(drama, :anchor => "self_list")
+        = link_to drama.completed?(@user) ? "&#xE71A;コンプリート" : drama.complete_rate(@user), drama_path(drama, :anchor => "self_list")
       .clear_all{:style => 'clear: both;', :clear => "all"}
       %br{:style => 'clear: both;', :clear => "all"}
   - else

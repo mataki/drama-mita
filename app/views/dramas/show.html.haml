@@ -24,7 +24,7 @@
   %h2{:style => font_size(:large) + "background-color: #fcc; text-align:center", :align => "center"} あなたの見た！
 
   %p
-    &#xE6BA;
+    &#xE71A;
     があなたが見た話に表示されています。
 
   - unless @drama.completed?(current_user)
@@ -37,7 +37,7 @@
     .episode
       - if watch = current_user.watched(episode)
         = link_to "#{h(episode.num_and_title)}", episode
-        &#xE6BA;
+        &#xE71A;
         = l watch.created_at.to_date, :format => :short
       - else
         - form_for(Watch.new(:episode => episode)) do |f|
