@@ -6,19 +6,18 @@
   .watched_count
     見た数: #{@user.watches.size}
 
-.self_list{:style => "background: #fee;"}
+#self_list{:style => "background: #fee;"}
   %h2{:style => font_size(:large) + "background: #fcc; text-align:center", :align => "center"} 見た！ドラマ
   - dramas = [@user.completed_dramas + @user.watched_dramas_without_completed].flatten
   - unless dramas.blank?
     - dramas.each do |drama|
-      .drama{:style => "float:left; margin: 0 3px;", :float => "left"}
-        .title_image
-          = link_to title_image_tag(drama), drama
-        .rate{:style => "height: 1.1em;"}
-          - if drama.completed?(@user)
-            &#xE6BA;コンプリート
-          - else
-            = drama.complete_rate(@user)
-    %br{:clear => "all"}
+      .drama
+        = title_image_tag(drama, :style => "float:left; margin: 5px 10px;", :align => "left")
+        見た！率:
+        %br
+        &nbsp;
+        = link_to drama.completed?(@user) ? "&#xE6BA;コンプリート" : drama.complete_rate(@user), drama_path(drama, :anchor => "self_list")
+      .clear_all{:style => 'clear: both;', :clear => "all"}
+      %br{:style => 'clear: both;', :clear => "all"}
   - else
-    %p まだ全部見たドラマはありません。
+    %p まだ見たドラマはありません。
