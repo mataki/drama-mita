@@ -14,7 +14,7 @@
       .drama{:style => "float:left;margin: 5px;", :float => "left"}
         .title_image{:style => "text-align:center;", :align => "center"}
           = link_to title_image_tag(drama), drama
-        .rate
+        .rate{:style => "height: 1.1em;"}
           - if drama.completed?(@user)
             &#xE6BA;コンプリート
           - else

@@ -15,10 +15,10 @@ class WatchesController < ApplicationController
     if (@watch and @watch.save) or @watches
       if drama.completed?(current_user)
         flash[:notice] = "#{drama.title}をコンプリートしました！おめでとう！"
-        MixiRest::Activities.request(current_user.mixi_id, "#{drama.title}を全部見たよ。#{drama.completed_users_count}人目です。あなたはあのドラマみた？", convert_url_for_mixi_app(url_for(drama))) if valid_mixi_app_request
+        MixiRest::Activities.request(current_user.mixi_id, "#{drama.title}を全部見たよ。#{drama.completed_users_count}人目です。あなたはあのドラマみた？", convert_url_for_mixi_app(url_for(drama)))
       else
         if before_count < 1
-          MixiRest::Activities.request(current_user.mixi_id, "##{drama.title}を見たよ。#{drama.watched_users_count}人目です。あなたはあのドラマみた？", convert_url_for_mixi_app(url_for(drama))) if valid_mixi_app_request
+          MixiRest::Activities.request(current_user.mixi_id, "##{drama.title}を見たよ。#{drama.watched_users_count}人目です。あなたはあのドラマみた？", convert_url_for_mixi_app(url_for(drama)))
         end
         flash[:notice] = "見た登録しました"
       end

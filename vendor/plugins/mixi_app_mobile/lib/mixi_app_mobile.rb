@@ -52,6 +52,10 @@ module MixiAppMobileController
 
       # TODO: テスト様にどのように処理を分離するとよいか検討
       attr_reader :valid_mixi_app_request
+
+      def self.reject_invalid_access?
+        @@reject_invalid_access_enviroments.include?(::Rails.env)
+      end
     end
   end
 
@@ -75,11 +79,6 @@ module MixiAppMobileController
       render "public/403.html", :status => 403, :layout => false
     end
   end
-
-  def self.reject_invalid_access?
-    @@reject_invalid_access_enviroments.include?(::Rails.env)
-  end
-
 
   def convert_url_for_mixi_app(url, app_id = params[:opensocial_app_id])
     "http://ma.mixi.net/#{app_id}/?guid=ON&url=#{URI.escape(url)}"

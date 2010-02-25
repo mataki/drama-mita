@@ -22,7 +22,7 @@ module MixiRest
       return true if resp.code == "200" and (resp.body.blank? or resp.body == "true")
       Hashie::Mash.new(JSON.parse(resp.body))
     rescue => e
-      if MixiAppMobileController.reject_invalid_access
+      if ApplicationController.reject_invalid_access?
         raise e
       else
         ::Rails.logger.error "[MixiRest] failed"
