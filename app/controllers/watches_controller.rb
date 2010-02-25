@@ -42,6 +42,6 @@ class WatchesController < ApplicationController
     @watch = Watch.find(params[:id])
     @watch.destroy
     flash[:notice] = "見た！を削除しました"
-    redirect_to (@watch and @watch.episode)
+    redirect_to @watch.episode
   end
 end
