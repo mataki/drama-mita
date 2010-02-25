@@ -1,22 +1,23 @@
 - hide_content ||= false
 .watch
-  = image_tag(watch.user.profile_image_url, :style => "float:left;", :align => "left")
-  .info
-    .user_name
-      = link_to h(watch.user.name), watch.user
-      さん
-    - if %w(home).include?(params[:controller])
-      .drama_title
-        = link_to watch.drama.title, watch.drama
-    - if %w(home dramas).include?(params[:controller])
-      .episode_info
-        = link_to watch.episode.num_and_title, watch.episode
-    .watch_date
-      登録日:
-      = l watch.created_at.to_date, :format => :short
-  %br{:clear => "all"}
+  = image_tag(watch.user.profile_image_url, :style => "float:left;margin-right: 3px;", :align => "left")
+  %span.user_name
+    = link_to h(watch.user.name), watch.user
+    さん
+  %br
+  - if %w(home).include?(params[:controller])
+    %span.drama_title
+      = link_to watch.drama.title, watch.drama
+    %br
+  - if %w(home dramas).include?(params[:controller])
+    %span.episode_info
+      = link_to watch.episode.num_and_title, watch.episode
+    %br
+  %span.watch_date
+    登録日:
+    = l watch.created_at.to_date, :format => :short
   .clear_all{:style => 'clear: both;', :clear => "all"}
   - unless hide_content
     .watch_content
       = watch.content
-    %br
+  %br
