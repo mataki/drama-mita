@@ -21,6 +21,13 @@ module MixiRest
       ::Rails.logger.info "[MixiRest] resp => #{resp.body}"
       return true if resp.code == "200" and (resp.body.blank? or resp.body == "true")
       Hashie::Mash.new(JSON.parse(resp.body))
+    rescue => e
+      if MixiAppMobileController.reject_invalid_access
+        raise e
+      else
+        ::Rails.logger.error "[MixiRest] failed"
+        return false
+      end
     end
   end
 end

@@ -71,10 +71,15 @@ module MixiAppMobileController
   end
 
   def reject_invalid_access
-    if @@reject_invalid_access_enviroments.include?(::Rails.env)
+    if self.class.reject_invalid_access?
       render "public/403.html", :status => 403, :layout => false
     end
   end
+
+  def self.reject_invalid_access?
+    @@reject_invalid_access_enviroments.include?(::Rails.env)
+  end
+
 
   def convert_url_for_mixi_app(url, app_id = params[:opensocial_app_id])
     "http://ma.mixi.net/#{app_id}/?guid=ON&url=#{URI.escape(url)}"

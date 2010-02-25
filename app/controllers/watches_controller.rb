@@ -9,13 +9,17 @@ class WatchesController < ApplicationController
     else
       @watch = Watch.new(params[:watch])
       @watch.user = current_user
+      drama = @watch.drama
     end
+    before_count = current_user.watches_count_by_drama(drama)
     if (@watch and @watch.save) or @watches
-      drama = (@watch || @watches.first).drama
       if drama.completed?(current_user)
         flash[:notice] = "#{drama.title}をコンプリートしました！おめでとう！"
-        MixiRest::Activities.request(current_user.mixi_id, "#{drama.title}を全部見ました。あなたも見ませんか？", convert_url_for_mixi_app(url_for(drama))) if valid_mixi_app_request
+        MixiRest::Activities.request(current_user.mixi_id, "#{drama.title}を全部見たよ。#{drama.completed_users_count}人目です。あなたはあのドラマみた？", convert_url_for_mixi_app(url_for(drama))) if valid_mixi_app_request
       else
+        if before_count < 1
+          MixiRest::Activities.request(current_user.mixi_id, "##{drama.title}を見たよ。#{drama.watched_users_count}人目です。あなたはあのドラマみた？", convert_url_for_mixi_app(url_for(drama))) if valid_mixi_app_request
+        end
         flash[:notice] = "見た登録しました"
       end
       redirect_to (@watch and @watch.episode) || drama

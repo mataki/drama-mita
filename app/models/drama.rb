@@ -34,4 +34,16 @@ class Drama < ActiveRecord::Base
       end
     end
   end
+
+  def completed_users_count
+    watched_user.select{ |k,v| v == self.episodes_count }.size
+  end
+
+  def watched_users_count
+    watched_user.size
+  end
+
+  def watched_user
+    @watched_user ||= self.watches.count(:group => "user_id")
+  end
 end
