@@ -1,8 +1,8 @@
 class AddCounterCachesToSomeTables < ActiveRecord::Migration
   def self.up
-    add_column :dramas, :episodes_count, :integer
-    add_column :episodes, :watches_count, :integer
-    add_column :users, :watches_count, :integer
+    add_column :dramas, :episodes_count, :integer, :nill => false, :default => 0
+    add_column :episodes, :watches_count, :integer, :nill => false, :default => 0
+    add_column :users, :watches_count, :integer, :nill => false, :default => 0
   end
 
   def self.down
