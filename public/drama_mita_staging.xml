@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <Module>
   <ModulePrefs title="あのドラマみた？"></ModulePrefs>
-  <Content type="url" view="mobile" href="http://drama-mita.heroku.com/" />
+  <Content type="url" view="mobile" href="http://drama-mita-mixi-st.heroku.com/" />
 </Module>
