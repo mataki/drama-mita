@@ -51,11 +51,12 @@ dramas = {"アグリー・ベティ シーズン1" => { :episodes => ["あこが
   "LOST シーズン1"=>{ :episodes => ["墜落","SOS","眠れぬ夜","運命","責任","閉ざされた心","暗闇の中で","手紙","孤独の人","予言","見えない足跡","ケースの中の過去","絆","運命の子","守るべきもの","最期の言葉","沈黙の陰","数字","啓示","約束","悲しみの記憶","タイムカプセル","迫りくる脅威","暗黒地帯","漆黒の闇"], :title_image => "lost_1.gif"},
   "24 -TWENTY FOUR- シーズン1"=>{ :episodes => ["12:00-AM1:00","AM1:00-AM2:00","AM2:00-AM3:00","AM3:00-AM4:00","AM4:00-AM5:00","AM5:00-AM6:00","AM6:00-AM7:00","AM7:00-AM8:00","AM8:00-AM9:00","AM9:00-AM10:00","AM10:00-AM11:00","AM11:00-AM12:00","AM12:00-PM1:00","PM1:00-PM2:00","PM2:00-PM3:00","PM3:00-PM4:00","PM4:00-PM5:00","PM5:00-PM6:00","PM6:00-PM7:00","PM7:00-PM8:00","PM8:00-PM9:00","PM9:00-PM10:00","PM10:00-PM11:00","PM11:00-PM12:00"], :title_image => "24_1.gif" },
   "24 -TWENTY FOUR- シーズン2"=>{ :episodes => ["12:00-AM1:00","AM1:00-AM2:00","AM2:00-AM3:00","AM3:00-AM4:00","AM4:00-AM5:00","AM5:00-AM6:00","AM6:00-AM7:00","AM7:00-AM8:00","AM8:00-AM9:00","AM9:00-AM10:00","AM10:00-AM11:00","AM11:00-AM12:00","AM12:00-PM1:00","PM1:00-PM2:00","PM2:00-PM3:00","PM3:00-PM4:00","PM4:00-PM5:00","PM5:00-PM6:00","PM6:00-PM7:00","PM7:00-PM8:00","PM8:00-PM9:00","PM9:00-PM10:00","PM10:00-PM11:00","PM11:00-PM12:00"], :title_image => "24_2.gif"} }
-dramas = dramas.map do |title, value|
-  drama = Drama.make(:title => title, :title_image => value[:title_image])
-  value[:episodes].map{ |title| Episode.make(:drama => drama, :title => title) }
-  Sham.reset
-end
+
+# dramas = dramas.map do |title, value|
+#   drama = Drama.make(:title => title, :title_image => value[:title_image])
+#   value[:episodes].map{ |title| Episode.make(:drama => drama, :title => title) }
+#   Sham.reset
+# end
 
 user = User.make
 friends = (1..3).map{ |i| User.make(:friend_ids => "#{user.mixi_id}") }
