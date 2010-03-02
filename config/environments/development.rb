@@ -17,6 +17,7 @@ config.action_controller.perform_caching             = false
 config.action_mailer.raise_delivery_errors = false
 
 config.gem 'bullet', :source => 'http://gemcutter.org'
+config.gem "newrelic_rpm"
 
 config.after_initialize do
   Bullet.enable = true
