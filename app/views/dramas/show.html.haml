@@ -10,6 +10,7 @@
       = render watch
   - else
     %p まだマイミクの誰も見ていないお話です。
+  = hr("#eef")
 
 #others_list{:style => "background-color: #ffe;"}
   .title2{:style => "background-color: #ffc; text-align:center", :align => "center"} みんなの見た&#xE702;
@@ -19,10 +20,10 @@
       = render watch
   - else
     %p 登録されていません。
+  = hr("#ffc")
 
 #self_list{:style => "background-color: #fee;"}
   .titles{:style => "background-color: #fcc; text-align:center", :align => "center"} あなたの見た&#xE702;
-
   %p
     &#xE71A;
     があなたが見た話に表示されています。
@@ -44,4 +45,5 @@
           = link_to "#{h(episode.num_and_title)}", episode
           = f.hidden_field :episode_id
           = f.submit "見た&#xE702;"
+  = hr("#fcc")
 

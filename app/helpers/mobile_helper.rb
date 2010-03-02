@@ -27,4 +27,8 @@ module MobileHelper
       end
     end
   end
+
+  def hr(color = "#000000", size = 2)
+    tag('hr', :style => "background-color:#{color}; border-color:#{color}; border-style:solid; height:#{size}px", :color => color, :size => size)
+  end
 end

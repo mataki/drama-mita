@@ -1,7 +1,4 @@
-- title "ドラマを探す"
-
-.title2#import{:style => "background-color: #ffc; text-align:center", :align => "center"}
-  #{params[:query]}が含まれるドラマ
+- title "#{params[:query]}が含まれるドラマ"
 
 - if @dramas.blank?
   該当するドラマが見つかりませんでした
@@ -16,7 +13,7 @@
         &nbsp;&nbsp;&nbsp;見た&#xE702;数: #{drama.watches.count}
       .episode_count
         &nbsp;&nbsp;&nbsp;全話数&nbsp;&nbsp;: #{drama.episodes_count}
-    %br
+    = hr "#ffe"
 
 %p
   まだ登録されていないドラマを登録したい場合は、サポートコミュニティーまでご連絡ください。
@@ -28,3 +25,4 @@
   - form_tag search_dramas_path do
     = text_field_tag :query
     = submit_tag "探す"
+  = hr "#ffe"

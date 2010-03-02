@@ -19,6 +19,7 @@
       - if show_title?
         .title1{:style => "background-color: #040; color:#fff; text-align:center", :align => "center"}
           = h yield(:title)
+        %br
 
       = yield
       %ad{:xmlns => "http://m.mixi.jp/2009/AdProgram/", :type => "footer"}
