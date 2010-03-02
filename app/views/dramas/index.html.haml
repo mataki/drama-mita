@@ -7,13 +7,13 @@
         &#xE71A;
       = link_to drama.title, drama
     .wathced_count
-      &nbsp;&nbsp;&nbsp;全見た！数: #{drama.watches.count}
+      &nbsp;&nbsp;&nbsp;全見た&#xE702;数: #{drama.watches.count}
     .episode_count
       &nbsp;&nbsp;&nbsp;全話数&nbsp;&nbsp;&nbsp;&nbsp;: #{drama.episodes_count}
   %br
 
 .search_form{:style => "background-color: #ffe;"}
-  %h2{:style => font_size(:large) + "background-color: #ffc; text-align:center", :align => "center"} ドラマを探す
+  .title2{:style => "background-color: #ffc; text-align:center", :align => "center"} ドラマを探す
   - form_tag search_dramas_path do
     = text_field_tag :query
     = submit_tag "探す"

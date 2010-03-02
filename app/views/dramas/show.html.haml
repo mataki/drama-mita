@@ -3,7 +3,7 @@
 - drama_title_image(@drama)
 
 #friends_list{:style => "background-color: #eef;"}
-  %h2{:style => font_size(:large) + "background-color: #ccf; text-align:center", :align => "center"} マイミクの見た！
+  .title2{:style => "background-color: #ccf; text-align:center", :align => "center"} マイミクの見た&#xE702;
   - friends_watches = @drama.watches.friends(current_user).all(:limit => 3, :include => [:user, {:episode => :drama} ])
   - unless friends_watches.blank?
     - friends_watches.each do |watch|
@@ -12,7 +12,7 @@
     %p まだマイミクの誰も見ていないお話です。
 
 #others_list{:style => "background-color: #ffe;"}
-  %h2{:style => font_size(:large) + "background-color: #ffc; text-align:center", :align => "center"} みんなの見た！
+  .title2{:style => "background-color: #ffc; text-align:center", :align => "center"} みんなの見た&#xE702;
   - others_watches = @drama.watches.user_id_is_not(current_user.id).all(:limit => 3, :include => [:user, {:episode => :drama} ])
   - unless others_watches.blank?
     - others_watches.each do |watch|
@@ -21,7 +21,7 @@
     %p 登録されていません。
 
 #self_list{:style => "background-color: #fee;"}
-  %h2{:style => font_size(:large) + "background-color: #fcc; text-align:center", :align => "center"} あなたの見た！
+  .titles{:style => "background-color: #fcc; text-align:center", :align => "center"} あなたの見た&#xE702;
 
   %p
     &#xE71A;
@@ -31,7 +31,7 @@
     - form_for(Watch.new(:drama_id => @drama.id)) do |f|
       = f.hidden_field :drama_id
       %p
-        = f.submit "全部見た！"
+        = f.submit "全部見た&#xE702;"
 
   - @drama.episodes.each do |episode|
     .episode
@@ -43,5 +43,5 @@
         - form_for(Watch.new(:episode => episode)) do |f|
           = link_to "#{h(episode.num_and_title)}", episode
           = f.hidden_field :episode_id
-          = f.submit "見た！"
+          = f.submit "見た&#xE702;"
 

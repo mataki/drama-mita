@@ -18,7 +18,13 @@ module MobileHelper
         base
       end
     else
-      ""
+      base = "font-size: 12px;"
+      case request.mobile
+      when Jpmobile::Mobile::Docomo then 'font-size: middle;'
+      when Jpmobile::Mobile::Softbank then 'font-size: middle;'
+      else
+        base
+      end
     end
   end
 end

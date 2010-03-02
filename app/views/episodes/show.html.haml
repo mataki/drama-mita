@@ -2,7 +2,7 @@
 - title "#{h @episode.num}話 #{h @episode.title}"
 
 #self_list{:style => "background-color: #fee;"}
-  %h2{:style => font_size(:large) + "background-color: #fcc; text-align:center", :align => "center"} あなたの見た！
+  .title2{:style => "background-color: #fcc; text-align:center", :align => "center"} あなたの見た&#xE702;
   - if self_watch = @episode.watches.find_by_user_id(current_user.id)
     = render :partial => "watches/watch", :locals => {:hide_content => true, :watch => self_watch}
     - form_for(self_watch) do |f|
@@ -23,10 +23,10 @@
         = f.label :content, "コメント"
         = f.text_field :content
       %p
-        = f.submit "見た！"
+        = f.submit "見た&#xE702;"
 
 #friends_list{:style => "background-color: #eef;"}
-  %h2{:style => font_size(:large) + "background-color: #ccf; text-align:center", :align => "center"} マイミクの見た！
+  .title2{:style => "background-color: #ccf; text-align:center", :align => "center"} マイミクの見た&#xE702;
   - friends_watches = @episode.watches.friends(current_user).all(:limit => 3, :include => [:user, {:episode => :drama} ])
   - unless friends_watches.blank?
     - friends_watches.each do |watch|
@@ -36,7 +36,7 @@
       まだマイミクの誰も見ていないお話です。
 
 #others_list{:style => "background-color: #ffe;"}
-  %h2{:style => font_size(:large) + "background-color: #ffc; text-align:center", :align => "center"} みんなの見た！
+  .title2{:style => "background-color: #ffc; text-align:center", :align => "center"} みんなの見た&#xE702;
   - others_watches = @episode.watches.user_id_is_not(current_user.id).all(:limit => 3, :include => [:user, {:episode => :drama} ])
   - unless others_watches.blank?
     - others_watches.each do |watch|

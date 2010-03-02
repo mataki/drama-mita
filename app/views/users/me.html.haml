@@ -3,21 +3,21 @@
 .user_info
   = image_tag(@user.profile_image_url, :style => "float:left;margin: 0px 5px;", :align => "left")
   %span.watched_drama_count
-    見た！ドラマ数: #{@user.watched_dramas.size}
+    見た&#xE702;ドラマ数: #{@user.watched_dramas.size}
   %br
   %span.watched_count
-    見た！数&nbsp;&nbsp;&nbsp;&nbsp;: #{@user.watches.size}
+    見た&#xE702;数&nbsp;&nbsp;&nbsp;&nbsp;: #{@user.watches.size}
   .clear_all{:style => 'clear: both;', :clear => "all"}
   %br{:style => 'clear: both;', :clear => "all"}
 
 #self_list{:style => "background-color: #fee;"}
-  %h2{:style => font_size(:large) + "background-color: #fcc; text-align:center", :align => "center"} 見た！ドラマ
+  .title2{:style => "background-color: #fcc; text-align:center", :align => "center"} 見た&#xE702;ドラマ
   - dramas = [@user.completed_dramas + @user.watched_dramas_without_completed].flatten
   - unless dramas.blank?
     - dramas.each do |drama|
       .drama
         = title_image_tag(drama, :style => "float:left; margin: 5px 10px;", :align => "left")
-        見た！率:
+        見た&#xE702;率:
         %br
         &nbsp;
         = link_to drama.completed?(@user) ? "&#xE71A;コンプリート" : drama.complete_rate(@user), drama
