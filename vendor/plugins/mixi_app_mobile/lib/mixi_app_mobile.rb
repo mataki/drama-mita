@@ -23,7 +23,9 @@ private
     result = html_options_for_form_without_convert_url_for_mixi_app(*args)
     if controller.valid_mixi_app_request
       url = result["action"]
+      logger.info "convert from #{url}"
       url = URI.join(root_url, url).to_s unless URI.parse(url).host
+      logger.info "convert to #{url}"
       result["action"] = "?guid=ON&url=#{URI.escape(url)}"
     end
     result
