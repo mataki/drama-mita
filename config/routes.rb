@@ -7,7 +7,7 @@ ActionController::Routing::Routes.draw do |map|
     episode.resources :watches, :only => :index
   end
 
-  map.resources :dramas
+  map.resources :dramas, :collection => { :search => :post }
 
   map.resources :users, :collection => { :me => :get }
 

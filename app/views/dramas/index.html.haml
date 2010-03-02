@@ -1,30 +1,19 @@
-- title "ドラマを探す"
+- title "人気のドラマ"
 
-%h2#import{:style => font_size(:large) + "background-color: #ffc; text-align:center", :align => "center"}
-  #{params[:query]}が含まれるドラマ
-
-- if @dramas.blank?
-  該当するドラマが見つかりませんでした
-- else
-  - @dramas.each do |drama|
-    .drama{:style => "background-color: #ffe;"}
-      .title{:style => font_size(:large) + "background-color: #ffc; text-align:center", :align => "center"}
-        - if drama.completed?(current_user)
-          &#xE71A;
-        = link_to drama.title, drama
-      .wathced_count
-        &nbsp;&nbsp;&nbsp;見た！数: #{drama.watches.count}
-      .episode_count
-        &nbsp;&nbsp;&nbsp;全話数&nbsp;&nbsp;: #{drama.episodes_count}
-    %br
-
-%p
-  まだ登録されていないドラマを登録したい場合は、サポートコミュニティーまでご連絡ください。
+- @dramas.each do |drama|
+  .drama{:style => "background-color: #ffe;"}
+    .title{:style => font_size(:large) + "background-color: #ffc; text-align:center", :align => "center"}
+      - if drama.completed?(current_user)
+        &#xE71A;
+      = link_to drama.title, drama
+    .wathced_count
+      &nbsp;&nbsp;&nbsp;全見た！数: #{drama.watches.count}
+    .episode_count
+      &nbsp;&nbsp;&nbsp;全話数&nbsp;&nbsp;&nbsp;&nbsp;: #{drama.episodes_count}
   %br
-  = link_to "サポートコミュニティーへ", ""
 
 .search_form{:style => "background-color: #ffe;"}
   %h2{:style => font_size(:large) + "background-color: #ffc; text-align:center", :align => "center"} ドラマを探す
-  - form_tag nil, :method => :get do
+  - form_tag search_dramas_path do
     = text_field_tag :query
     = submit_tag "探す"
