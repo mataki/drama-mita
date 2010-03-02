@@ -4,7 +4,7 @@ require 'oauth/request_proxy/action_controller_request'
 module ActionView::Helpers::UrlHelper
   def link_to_with_convert_url_for_mixi_app(*args)
     str = link_to_without_convert_url_for_mixi_app(*args)
-    if controller.respond_to?(:valid_mixi_app_mobile_request) and controller.valid_mixi_app_request
+    if controller.valid_mixi_app_request
       str.match(/href=["']([^'"]+)["']/)
       url = $1
       url = URI.join(root_url, url).to_s unless URI.parse(url).host
@@ -21,7 +21,7 @@ module ActionView::Helpers::FormTagHelper
 private
   def html_options_for_form_with_convert_url_for_mixi_app(*args)
     result = html_options_for_form_without_convert_url_for_mixi_app(*args)
-    if controller.respond_to?(:valid_mixi_app_mobile_request) and controller.valid_mixi_app_request
+    if controller.valid_mixi_app_request
       url = result["action"]
       url = URI.join(root_url, url).to_s unless URI.parse(url).host
       result["action"] = "?guid=ON&url=#{URI.escape(url)}"
