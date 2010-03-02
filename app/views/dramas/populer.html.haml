@@ -14,6 +14,6 @@
 
 .search_form{:style => "background-color: #ffe;"}
   %h2{:style => font_size(:large) + "background-color: #ffc; text-align:center", :align => "center"} ドラマを探す
-  - form_tag nil, :method => :get do
-    = text_field_tag :query
+  - form_tag nil do
+    = text_field_tag :drama_title_query
     = submit_tag "探す"
