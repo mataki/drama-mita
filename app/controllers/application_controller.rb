@@ -45,7 +45,7 @@ private
     str = <<-EOF
 -- Debug ----------------------------
 user   : #{params[:opensocial_owner_id]}
-mobile : #{mobile.inspect if respond_to?(:mobile)}
+mobile : #{request.mobile.inspect}
 ------------------------------
 EOF
     logger.info str
