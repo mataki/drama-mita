@@ -1,7 +1,5 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
-require 'oauth/request_proxy/action_controller_request'
-require 'oauth/signature/hmac/sha1'
 
 class ApplicationController < ActionController::Base
   include MixiAppMobileController
@@ -15,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
-  before_filter :require_user
+  before_filter :require_user, :debug_log
 
   after_filter :set_content_type_for_docomo
 
@@ -41,5 +39,15 @@ private
     if mobile && mobile.instance_of?(Jpmobile::Mobile::Docomo)
       self.response.content_type = "application/xhtml+xml"
     end
+  end
+
+  def debug_log
+    str = <<-EOF
+-- Debug ----------------------------
+user   : #{params[:opensocial_owner_id]}
+mobile : #{mobile.inspect if respond_to?(:mobile)}
+------------------------------
+EOF
+    logger.info str
   end
 end
