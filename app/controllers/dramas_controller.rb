@@ -4,7 +4,7 @@ class DramasController < ApplicationController
   end
 
   def search
-    @dramas = Drama.title_like(params[:query]).descend_by_updated_at.all
+    @dramas = Drama.title_or_ambiguous_title_like(params[:query]).descend_by_updated_at.all
   end
 
   def show

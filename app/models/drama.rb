@@ -9,7 +9,7 @@ class Drama < ActiveRecord::Base
   @@per_page = 5
 
   named_scope :populer, lambda {
-    {:select => "sum(CASE WHEN episodes.watches_count is null THEN 0 ELSE episodes.watches_count END) AS sum_watches_count, dramas.*", :joins => :episodes, :group => "dramas.id, dramas.title, dramas.category_id, dramas.created_at, dramas.updated_at, dramas.episodes_count, dramas.title_image", :order => "sum_watches_count DESC"}
+    {:select => "sum(CASE WHEN episodes.watches_count is null THEN 0 ELSE episodes.watches_count END) AS sum_watches_count, dramas.*", :joins => :episodes, :group => "dramas.id, dramas.title, dramas.category_id, dramas.created_at, dramas.updated_at, dramas.episodes_count, dramas.title_image, dramas.ambiguous_title", :order => "sum_watches_count DESC"}
   }
 
   def self.current_episodes
