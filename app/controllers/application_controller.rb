@@ -48,6 +48,6 @@ user   : #{params[:opensocial_owner_id]}
 mobile : #{request.mobile.inspect}
 ------------------------------
 EOF
-    logger.info str
+    logger.debug str
   end
 end
