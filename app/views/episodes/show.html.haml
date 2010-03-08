@@ -9,6 +9,7 @@
       %p
         = f.label :content, "コメント"
         = f.text_field :content
+        絵文字が利用できます。
       %p
         = f.submit "更新"
     - form_for(self_watch, :url => watch_path(self_watch), :html => {:method => "delete"}) do |f|
@@ -41,8 +42,7 @@
   - unless others_watches.blank?
     - others_watches.each do |watch|
       = render watch
+    = link_to "他のコメントを見る", [@episode, :watches]
   - else
     %p
       まだ登録されていません。
-
-  = link_to "他のコメントを見る", [@episode, :watches]

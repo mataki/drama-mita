@@ -9,8 +9,11 @@
   = link_to "「あのドラマ見た？」って何？", info_path(:welcome)
 
 - if have_wathed?
-  .center{:style=> "text-align:center;", :align => "center"}
+  .center{:style => "text-align:center;", :align => "center"}
+    &#xE663;
     = link_to "マイページへ", me_users_path
+    &#xE663;
+  %br
 
 - unless @friends_watches.blank?
   .friends_list{:style => "background-color: #eef;"}
@@ -20,7 +23,6 @@
       同じドラマを見ているマイミクがいたら、あなたも「見た&#xE702;」して教えてあげよう。
     - @friends_watches.each do |watch|
       = render watch
-  = hr("#eef")
 
 .others_list{:style => "background-color: #ffe;"}
   .title2{:style => "background-color: #ffc; text-align:center", :align => "center"} みんなの見た&#xE702;
@@ -28,7 +30,6 @@
     他の人の見たドラマの中から、あなたの見たドラマを探してみましょう！
   - @recent_watches.each do |watch|
     = render watch
-= hr("#ffe")
 
 %p
   他に登録したいドラマがあれば、ドラマを探してみましょう。
