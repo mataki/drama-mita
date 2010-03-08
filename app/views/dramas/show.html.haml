@@ -39,7 +39,7 @@
       - if watch = current_user.watched(episode)
         = link_to "#{h(episode.num_and_title)}", episode
         &#xE71A;
-        = "#{l(watch.created_at.to_date, :format => :short)}:#{truncate(watch.content, :length => 10)}"
+        = "#{l(watch.created_at.to_date, :format => :short)} #{truncate(watch.content, :length => 10)}"
       - else
         - form_for(Watch.new(:episode => episode)) do |f|
           = link_to "#{h(episode.num_and_title)}", episode

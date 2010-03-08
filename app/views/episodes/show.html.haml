@@ -9,12 +9,13 @@
       %p
         = f.label :content, "コメント"
         = f.text_field :content
+        %br
         絵文字が利用できます。
       %p
-        = f.submit "更新"
+        = f.submit "更新する"
     - form_for(self_watch, :url => watch_path(self_watch), :html => {:method => "delete"}) do |f|
       %p
-        = f.submit "削除"
+        = f.submit "削除する"
   - else
     %p
       まだ登録されていません。もしあなたの見ているドラマであれば見たボタンを押しましょう！
