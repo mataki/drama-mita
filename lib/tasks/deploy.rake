@@ -6,34 +6,34 @@ namespace :deploy do
 
   task :push do
     puts 'Deploying site to Heroku ...'
-    puts `git push heroku`
+    puts `git push production`
   end
 
   task :restart do
     puts 'Restarting app servers ...'
-    puts `heroku restart`
+    puts `heroku restart --app drama-mita`
   end
 
   task :tag do
     release_name = "release-#{Time.now.utc.strftime("%Y%m%d%H%M%S")}"
     puts "Tagging release as '#{release_name}'"
     puts `git tag -a #{release_name} -m 'Tagged release'`
-    puts `git push --tags heroku`
+    puts `git push --tags production`
   end
 
   task :migrate do
     puts 'Running database migrations ...'
-    puts `heroku rake db:migrate`
+    puts `heroku rake db:migrate --app drama-mita`
   end
 
   task :off do
     puts 'Putting the app into maintenance mode ...'
-    puts `heroku maintenance:on`
+    puts `heroku maintenance:on --app drama-mita`
   end
 
   task :on do
     puts 'Taking the app out of maintenance mode ...'
-    puts `heroku maintenance:off`
+    puts `heroku maintenance:off --app drama-mita`
   end
 
   task :push_previous do
@@ -42,10 +42,10 @@ namespace :deploy do
     previous_release = releases[-2] if releases.length >= 2
     if previous_release
       puts "Rolling back to '#{previous_release}' ..."
-      puts `git push -f heroku #{previous_release}:master`
+      puts `git push -f production #{previous_release}:master`
       puts "Deleting rollbacked release '#{current_release}' ..."
       puts `git tag -d #{current_release}`
-      puts `git push heroku :refs/tags/#{current_release}`
+      puts `git push production :refs/tags/#{current_release}`
       puts 'All done!'
     else
       puts "No release tags found - can't roll back!"
