@@ -44,7 +44,7 @@ module OAuth::RequestProxy
 end
 
 module MixiAppMobileController
-  @@reject_invalid_access_enviroments = %w(production)
+  @@reject_invalid_access_enviroments = %w(production staging)
 
   def self.included(klass)
     klass.class_eval do
@@ -64,7 +64,7 @@ module MixiAppMobileController
   def valid_mixi_app_mobile_request?
     mixi_request = OAuth::RequestProxy::ActionControllerRequestForMixi.new(request)
     unless OAuth::Signature.verify(mixi_request, :consumer_secret => ENV['CONSUMER_SECRET'])
-      reject_invalid_access
+      reject_invalid_access(mixi_request)
     else
       @valid_mixi_app_request = true
     end
@@ -76,8 +76,14 @@ module MixiAppMobileController
     reject_invalid_access
   end
 
-  def reject_invalid_access
+  def reject_invalid_access(request = nil)
     if self.class.reject_invalid_access?
+      if request
+        signature = OAuth::Signature.build(request, :consumer_secret => ENV["CONSUMER_SECRET"])
+        logger.info "Signature base string: #{signature.signature_base_string}"
+        logger.info "Genarated signature: #{signature.signature}"
+        logger.info "Request signature: #{signature.request.signature}"
+      end
       render "public/403.html", :status => 403, :layout => false
     end
   end
