@@ -40,6 +40,11 @@ module OAuth::RequestProxy
       result = super
       result.select{ |k,v| MIXI_PARAMETERS.include?(k) }
     end
+
+    def method
+      result = super
+      (result != "GET") ? "POST" : "GET"
+    end
   end
 end
 
