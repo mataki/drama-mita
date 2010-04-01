@@ -18,7 +18,7 @@ module MixiRest
       ::Rails.logger.info "[MixiRest] request => #{method}: #{url_with_site}"
       resp = @@consumer.request(method, url_with_site, nil, request_options.update(:scheme => :query_string), *arguments)
       ::Rails.logger.info "[MixiRest] resp => #{resp.inspect}"
-      ::Rails.logger.info "[MixiRest] resp => #{resp.body}"
+      ::Rails.logger.debug "[MixiRest] resp => #{resp.body}"
       return true if resp.code == "200" and (resp.body.blank? or resp.body == "true")
       Hashie::Mash.new(JSON.parse(resp.body))
     rescue => e

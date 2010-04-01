@@ -23,9 +23,9 @@ private
     result = html_options_for_form_without_convert_url_for_mixi_app(*args)
     if controller.valid_mixi_app_request
       url = result["action"]
-      logger.info "convert from #{url}"
+      logger.debug "convert from #{url}"
       url = URI.join(root_url, url).to_s unless URI.parse(url).host
-      logger.info "convert to #{url}"
+      logger.debug "convert to #{url}"
       result["action"] = "?guid=ON&url=#{URI.escape(url)}"
     end
     result
@@ -74,7 +74,6 @@ module MixiAppMobileController
       @valid_mixi_app_request = true
     end
   rescue OAuth::Signature::UnknownSignatureMethod => e
-    logger.info e
     reject_invalid_access
   rescue => e
     logger.info e
@@ -85,9 +84,9 @@ module MixiAppMobileController
     if self.class.reject_invalid_access?
       if request
         signature = OAuth::Signature.build(request, :consumer_secret => ENV["CONSUMER_SECRET"])
-        logger.info "Signature base string: #{signature.signature_base_string}"
-        logger.info "Genarated signature: #{signature.signature}"
-        logger.info "Request signature: #{signature.request.signature}"
+        logger.debug "Signature base string: #{signature.signature_base_string}"
+        logger.debug "Genarated signature: #{signature.signature}"
+        logger.debug "Request signature: #{signature.request.signature}"
       end
       render "public/403.html", :status => 403, :layout => false
     end
