@@ -5,7 +5,7 @@
 # Make sure the secret is at least 30 characters and all random,
 # no regular words or you'll be exposed to dictionary attacks.
 ActionController::Base.session = {
-  :key         => '_drama-mita_session',
+  :key         => '_dd_ses',
   :cookie_only => false,
 }
 

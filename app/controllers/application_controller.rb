@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
 
-  trans_sid
+  trans_sid :always
   mobile_filter :hankaku => true
 
   helper_method :current_user

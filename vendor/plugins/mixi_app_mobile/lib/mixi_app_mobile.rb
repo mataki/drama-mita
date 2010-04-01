@@ -36,10 +36,13 @@ end
 module OAuth::RequestProxy
   class ActionControllerRequestForMixi < ActionControllerRequest
     MIXI_PARAMETERS = OAuth::PARAMETERS + %w(opensocial_app_id opensocial_owner_id)
-    def parameters_for_signature
-      result = super
-      result.select{ |k,v| MIXI_PARAMETERS.include?(k) }
+    def parameters_for_signature_with_select_mixi_keys
+      result = parameters_for_signature_without_select_mixi_keys
+      target_keys = MIXI_PARAMETERS
+      target_keys << ActionController::Base.session_options[:key] if so = ActionController::Base.session_options and session_key = so[:key]
+      result.select{ |k,v| target_keys.include?(k) }.uniq
     end
+    alias_method_chain :parameters_for_signature, :select_mixi_keys
 
     def method
       result = super
@@ -84,6 +87,8 @@ module MixiAppMobileController
     if self.class.reject_invalid_access?
       if request
         signature = OAuth::Signature.build(request, :consumer_secret => ENV["CONSUMER_SECRET"])
+        logger.debug "Parameters for Signature: #{request.parameters_for_signature.inspect}"
+        logger.debug "Original parameters for signature: #{request.parameters_for_signature_without_select_mixi_keys.inspect}"
         logger.debug "Signature base string: #{signature.signature_base_string}"
         logger.debug "Genarated signature: #{signature.signature}"
         logger.debug "Request signature: #{signature.request.signature}"
