@@ -14,7 +14,7 @@ class WatchesController < ApplicationController
     before_count = current_user.watches_count_by_drama(drama)
     if (@watch and @watch.save) or @watches
       redirect_url = url_for((@watch and @watch.episode) || drama)
-      if drama.completed?(current_user)
+      if drama.completed?(current_user, true)
         flash[:notice] = "#{drama.title}をコンプリートしました！おめでとう！"
         send_activity("#{drama.title}を全部見たよ(#{drama.completed_users_count}人目)。あなたはあのドラマみた？", convert_url_for_mixi_app(url_for(drama)), redirect_url)
       else

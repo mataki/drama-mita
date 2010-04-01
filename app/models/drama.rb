@@ -19,8 +19,8 @@ class Drama < ActiveRecord::Base
     end
   end
 
-  def completed?(user)
-    user.watches_count_by_drama(self) >= self.episodes_count
+  def completed?(user, reload = false)
+    user.watches_count_by_drama(self, reload) >= self.episodes_count
   end
 
   def complete_rate(user)

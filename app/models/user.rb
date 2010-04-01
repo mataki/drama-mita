@@ -34,9 +34,10 @@ class User < ActiveRecord::Base
     friend_ids ? friend_ids.split(',') : []
   end
 
-  def watches_count_by_drama(drama)
+  def watches_count_by_drama(drama, reload = false)
+    @watches_count_by_drama = {} if reload
     @watches_count_by_drama ||= {}
-    @watches_count_by_drama[drama.id] ||= self.watches.episode_drama_id_is(drama.id).count
+    @watches_count_by_drama[drama.id] ||= self.watches(reload).episode_drama_id_is(drama.id).count
   end
 
   def watched(episode)
