@@ -7,6 +7,7 @@ class ActivitiesController < ApplicationController
   def create
     begin
       MixiRest::Activities.request(current_user.mixi_id, @activity[:title], @activity[:url])
+      session[:activity] = nil
     rescue MixiRest::Connection::InvalidResponse => exception
       Exceptional::Catcher.handle_with_controller(exception, self, request)
       Exceptional.context.clear!
