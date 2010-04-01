@@ -5,7 +5,12 @@ class ActivitiesController < ApplicationController
   end
 
   def create
-    MixiRest::Activities.request(current_user.mixi_id, @activity[:title], @activity[:url])
+    begin
+      MixiRest::Activities.request(current_user.mixi_id, @activity[:title], @activity[:url])
+    rescue MixiRest::Connection::InvalidResponse => exception
+      Exceptional::Catcher.handle_with_controller(exception, self, request)
+      Exceptional.context.clear!
+    end
     redirect_to @activity[:return_to] || root_url
   end
 
