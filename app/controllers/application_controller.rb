@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
   # Scrub sensitive parameters from your log
   filter_parameter_logging :password
 
+  trans_sid
   mobile_filter :hankaku => true
 
   helper_method :current_user
@@ -45,7 +46,7 @@ private
     str = <<-EOF
 -- Debug ----------------------------
 user   : #{params[:opensocial_owner_id]}
-mobile : #{request.mobile.inspect}
+mobile : #{!!(request.mobile)}
 ------------------------------
 EOF
     logger.debug str

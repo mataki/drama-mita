@@ -13,16 +13,18 @@ class WatchesController < ApplicationController
     end
     before_count = current_user.watches_count_by_drama(drama)
     if (@watch and @watch.save) or @watches
+      redirect_url = url_for((@watch and @watch.episode) || drama)
       if drama.completed?(current_user)
         flash[:notice] = "#{drama.title}をコンプリートしました！おめでとう！"
-        MixiRest::Activities.request(current_user.mixi_id, "#{drama.title}を全部見たよ(#{drama.completed_users_count}人目)。あなたはあのドラマみた？", convert_url_for_mixi_app(url_for(drama)))
+        send_activity("#{drama.title}を全部見たよ(#{drama.completed_users_count}人目)。あなたはあのドラマみた？", convert_url_for_mixi_app(url_for(drama)), redirect_url)
       else
         if before_count < 1
-          MixiRest::Activities.request(current_user.mixi_id, "#{drama.title}を見たよ(#{drama.watched_users_count}人目)。あなたはあのドラマみた？", convert_url_for_mixi_app(url_for(drama)))
+          flash[:notice] = "#{drama.title}を初めて見た！を登録しました"
+          send_activity("#{drama.title}を見たよ(#{drama.watched_users_count}人目)。あなたはあのドラマみた？", convert_url_for_mixi_app(url_for(drama)), redirect_url)
+        else
+          redirect_to redirect_url
         end
-        flash[:notice] = "見た！を登録しました"
       end
-      redirect_to (@watch and @watch.episode) || drama
     else
       render :action => 'new'
     end
@@ -31,7 +33,6 @@ class WatchesController < ApplicationController
   def update
     @watch = Watch.find(params[:id])
     if @watch.update_attributes(params[:watch])
-      flash[:notice] = "コメントを更新しました"
       redirect_to (@watch and @watch.episode)
     else
       render :action => 'edit'
@@ -41,7 +42,12 @@ class WatchesController < ApplicationController
   def destroy
     @watch = Watch.find(params[:id])
     @watch.destroy
-    flash[:notice] = "見た！を削除しました"
     redirect_to @watch.episode
+  end
+
+private
+  def send_activity(title, url, return_to)
+    session[:activity] = { :title => title, :url => url, :return_to => return_to }
+    redirect_to new_activity_path
   end
 end

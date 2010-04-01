@@ -8,8 +8,6 @@
     = yield(:head)
   %body
     #container
-      - flash.each do |name, msg|
-        = content_tag :div, msg, :id => "flash_#{name}"
       %ad{:xmlns => "http://m.mixi.jp/2009/AdProgram/", :type => "header"}
 
       - if show_drama_title_image?

@@ -1,0 +1,9 @@
+- title flash[:notice]
+
+.center{:style=> "text-align:center;", :align => "center"}
+  マイミクに連絡しましょう&#xE702;
+  - form_tag activity_path do
+    = submit_tag "はい"
+
+  - form_tag cancel_activity_path do
+    = submit_tag "いいえ"

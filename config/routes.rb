@@ -13,5 +13,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :categories
 
+  map.resource :activity, :only => %w(new create), :collection => { :cancel => :post }
+
   map.info "/info/:action", :controller => "info"
 end
