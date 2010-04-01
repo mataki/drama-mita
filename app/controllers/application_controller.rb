@@ -47,6 +47,8 @@ private
 -- Debug ----------------------------
 user   : #{params[:opensocial_owner_id]}
 mobile : #{!!(request.mobile)}
+request: #{request}
+cookie : #{request.cookies}
 ------------------------------
 EOF
     logger.debug str
