@@ -4,7 +4,7 @@
 
 #friends_list{:style => "background-color: #eef;"}
   .title2{:style => "background-color: #ccf; text-align:center", :align => "center"} マイミクの見た&#xE702;
-  - friends_watches = @drama.watches.friends(current_user).all(:limit => 3, :include => [:user, {:episode => :drama} ])
+  - friends_watches = @drama.watches.friends(current_user).descend_by_updated_at.all(:limit => 3, :include => [:user, {:episode => :drama} ])
   - unless friends_watches.blank?
     - friends_watches.each do |watch|
       = render watch
@@ -14,7 +14,7 @@
 
 #others_list{:style => "background-color: #ffe;"}
   .title2{:style => "background-color: #ffc; text-align:center", :align => "center"} みんなの見た&#xE702;
-  - others_watches = @drama.watches.user_id_is_not(current_user.id).all(:limit => 3, :include => [:user, {:episode => :drama} ])
+  - others_watches = @drama.watches.user_id_is_not(current_user.id).descend_by_updated_at.all(:limit => 3, :include => [:user, {:episode => :drama} ])
   - unless others_watches.blank?
     - others_watches.each do |watch|
       = render watch
