@@ -23,6 +23,10 @@
 
       = yield
 
+      .center{:style=> "text-align:center;", :align => "center"}
+        = link_to_without_convert_url_for_mixi_app "&#xE6D3;マイミクを招待する&#xE6D3;", "invite:friends?callback=#{ERB::Util.u(root_url)}"
+      %br
+
       %ad{:xmlns => "http://m.mixi.jp/2009/AdProgram/", :type => "footer", :id => "a1e168e72f5bcf9f3266459d5e1c21fe3124f611"}
 
       %hr
