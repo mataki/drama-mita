@@ -8,6 +8,9 @@
     = yield(:head)
   %body
     #container
+      %ad{:xmlns => "http://m.mixi.jp/2009/AdProgram/", :type => "header", :id => "a1e168e72f5bcf9f3266459d5e1c21fe3124f611"}
+      %br
+
       - if show_drama_title_image?
         .center{:style=> "text-align:center;", :align => "center"}
           = yield(:drama_title_image)
@@ -17,7 +20,6 @@
           = h yield(:title)
         %br
 
-      %ad{:xmlns => "http://m.mixi.jp/2009/AdProgram/", :type => "header", :id => "a1e168e72f5bcf9f3266459d5e1c21fe3124f611"}
 
       = yield
 
