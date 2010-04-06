@@ -2,7 +2,7 @@ class Drama < ActiveRecord::Base
   attr_accessible :title
 
   belongs_to :category
-  has_many :episodes, :order => "num ASC"
+  has_many :episodes, :order => "num ASC", :dependent => :destroy
   has_many :watches, :through => :episodes
 
   cattr_reader :per_page
