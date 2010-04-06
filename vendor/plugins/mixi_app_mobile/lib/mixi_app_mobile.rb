@@ -7,7 +7,9 @@ module ActionView::Helpers::UrlHelper
     if controller.valid_mixi_app_request
       str.match(/href=["']([^'"]+)["']/)
       url = $1
+      logger.debug "convert from #{url}"
       url = URI.join(root_url, url).to_s unless URI.parse(url).host
+      logger.debug "convert to #{url}"
       return "#{$`} href=\"?guid=ON&url=#{ERB::Util.u(url)}\"#{$'}"
     else
       return str

@@ -13,12 +13,12 @@
     = hr "#ffc"
 .center{:style=> "text-align:center;", :align => "center"}
   - if @dramas.previous_page
-    = link_to '&#xE6E7;前を表示', dramas_path(:page => @dramas.previous_page), :accesskey => '6'
+    = link_to '&#xE6E7;前を表示', {:page => @dramas.previous_page, :escape => false}, :accesskey => '6'
   - if @dramas.next_page
-    = link_to '&#xE6E8;次を表示', dramas_path(:page => @dramas.next_page), :accesskey => '7'
+    = link_to '&#xE6E8;次を表示', {:page => @dramas.next_page, :escape => false}, :accesskey => '7'
   - if @dramas.previous_page
     %br
-      = link_to '人気トップに戻る', dramas_path
+    = link_to '人気トップに戻る', dramas_path
 
 %br
 .search_form{:style => "background-color: #ffe;"}
