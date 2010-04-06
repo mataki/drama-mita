@@ -35,7 +35,7 @@ end
 
 module OAuth::RequestProxy
   class ActionControllerRequestForMixi < ActionControllerRequest
-    MIXI_PARAMETERS = OAuth::PARAMETERS + %w(opensocial_app_id opensocial_owner_id invite_member)
+    MIXI_PARAMETERS = OAuth::PARAMETERS + %w(opensocial_app_id opensocial_owner_id invite_member page)
     def parameters_for_signature_with_select_mixi_keys
       result = parameters_for_signature_without_select_mixi_keys
       target_keys = MIXI_PARAMETERS
