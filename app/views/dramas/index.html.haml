@@ -11,9 +11,18 @@
     .episode_count
       &nbsp;&nbsp;&nbsp;全話数&nbsp;&nbsp;&nbsp;&nbsp;: #{drama.episodes_count}
     = hr "#ffc"
+.center{:style=> "text-align:center;", :align => "center"}
+  - if @dramas.previous_page
+    = link_to '&#xE6E7;前を表示', dramas_path(:page => @dramas.previous_page), :accesskey => '6'
+  - if @dramas.next_page
+    = link_to '&#xE6E8;次を表示', dramas_path(:page => @dramas.next_page), :accesskey => '7'
+  - if @dramas.previous_page
+    %br
+      = link_to '人気トップに戻る', dramas_path
 
+%br
 .search_form{:style => "background-color: #ffe;"}
-  .title2{:style => "background-color: #ffc; text-align:center", :align => "center"} ドラマを探す
+  .title2{:style => "background-color: #040; color:#fff; text-align:center", :align => "center"} ドラマを探す
   - form_tag search_dramas_path do
     = text_field_tag :query
     = submit_tag "探す"
