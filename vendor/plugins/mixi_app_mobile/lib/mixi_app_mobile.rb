@@ -8,7 +8,7 @@ module ActionView::Helpers::UrlHelper
       str.match(/href=["']([^'"]+)["']/)
       url = $1
       url = URI.join(root_url, url).to_s unless URI.parse(url).host
-      return "#{$`} href=\"?guid=ON&url=#{URI.escape(url)}\"#{$'}"
+      return "#{$`} href=\"?guid=ON&url=#{ERB::Util.u(url)}\"#{$'}"
     else
       return str
     end
@@ -26,7 +26,7 @@ private
       logger.debug "convert from #{url}"
       url = URI.join(root_url, url).to_s unless URI.parse(url).host
       logger.debug "convert to #{url}"
-      result["action"] = "?guid=ON&url=#{URI.escape(url)}"
+      result["action"] = "?guid=ON&url=#{ERB::Util.u(url)}"
     end
     result
   end
@@ -98,7 +98,7 @@ module MixiAppMobileController
   end
 
   def convert_url_for_mixi_app(url, app_id = params[:opensocial_app_id])
-    "http://ma.mixi.net/#{app_id}/?guid=ON&url=#{URI.escape(url)}"
+    "http://ma.mixi.net/#{app_id}/?guid=ON&url=#{ERB::Util.u(url)}"
   end
 
   def redirect_to_full_url_with_convert_url_for_mixi_app(url, status)
