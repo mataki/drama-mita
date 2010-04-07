@@ -7,4 +7,8 @@ class Episode < ActiveRecord::Base
   def num_and_title
     "#{num}話 #{title}"
   end
+
+  def recent_watchers
+    User.recent_watchers_on_episode(self)
+  end
 end

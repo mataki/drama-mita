@@ -15,21 +15,21 @@
     &#xE663;
   %br
 
-- unless @friends_watches.blank?
+- unless @friends.blank?
   .friends_list{:style => "background-color: #eef;"}
     .title2{:style => "background-color: #ccf; text-align:center", :align => "center"} マイミクの見た&#xE702;
     %p
       マイミクが見たドラマが表示されています。<br />
       同じドラマを見ているマイミクがいたら、あなたも「見た&#xE702;」して教えてあげよう。
-    - @friends_watches.each do |watch|
-      = render watch
+    - @friends.each do |friend|
+      = render friend.watches.first
 
 .others_list{:style => "background-color: #ffe;"}
   .title2{:style => "background-color: #ffc; text-align:center", :align => "center"} みんなの見た&#xE702;
   %p
     他の人の見たドラマの中から、あなたの見たドラマを探してみましょう！
-  - @recent_watches.each do |watch|
-    = render watch
+  - @others.each do |other|
+    = render other.watches.first
 
 %p
   他に登録したいドラマがあれば、ドラマを探してみましょう。

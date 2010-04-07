@@ -5,8 +5,32 @@ class User < ActiveRecord::Base
 
   has_many :watches
 
+  alias_scope :recent_watchers, lambda {
+    watches_count_is_not(0).scoped(:order=>"watches.created_at DESC", :include => :watches)
+  }
+
+  alias_scope :recent_watchers_on_episode, lambda { |episode|
+    recent_watchers.watches_episode_id_is(episode.id)
+  }
+
+  named_scope :recent_watchers_on_drama, lambda { |drama|
+    { :include => {:watches => :episode}, :conditions => {:watches => {:episodes => {:drama_id => drama.id}}}, :order => "watches.created_at DESC" }
+  }
+
+  alias_scope :friends, lambda { |user|
+    id_is_not(user.id).mixi_id_is(user.friend_ids_arr)
+  }
+
+  alias_scope :others, lambda { |user|
+    id_is_not(user.id)
+  }
+
   def friends
-    User.id_is_not(self.id).find_all_by_mixi_id(friend_ids_arr)
+    self.class.friends(self)
+  end
+
+  def others
+    self.class.others(self)
   end
 
   def watched_dramas

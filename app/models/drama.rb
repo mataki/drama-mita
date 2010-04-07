@@ -46,4 +46,8 @@ class Drama < ActiveRecord::Base
   def watched_user
     @watched_user ||= self.watches.count(:group => "user_id")
   end
+
+  def recent_watchers
+    User.recent_watchers_on_drama(self)
+  end
 end

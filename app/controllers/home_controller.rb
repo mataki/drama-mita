@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    @friends_watches = Watch.friends(current_user).descend_by_updated_at.all(:limit => 3, :include => [:user, { :episode => :drama }])
-    @recent_watches = Watch.not_user(current_user).descend_by_updated_at.all(:limit => 3, :include => [:user, { :episode => :drama }])
+    @friends = current_user.friends.recent_watchers.all(:limit => 3)
+    @others = current_user.others.recent_watchers.all(:limit => 3)
   end
 end
