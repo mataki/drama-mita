@@ -38,13 +38,13 @@ end
 module OAuth::RequestProxy
   class ActionControllerRequestForMixi < ActionControllerRequest
     MIXI_PARAMETERS = OAuth::PARAMETERS + %w(opensocial_app_id opensocial_owner_id invite_member page)
-    def parameters_for_signature_with_select_mixi_keys
-      result = parameters_for_signature_without_select_mixi_keys
-      target_keys = MIXI_PARAMETERS
-      target_keys << ActionController::Base.session_options[:key] if so = ActionController::Base.session_options and session_key = so[:key]
-      result.select{ |k,v| target_keys.include?(k) }.uniq
-    end
-    alias_method_chain :parameters_for_signature, :select_mixi_keys
+    # def parameters_for_signature_with_select_mixi_keys
+    #   result = parameters_for_signature_without_select_mixi_keys
+    #   target_keys = MIXI_PARAMETERS
+    #   target_keys << ActionController::Base.session_options[:key] if so = ActionController::Base.session_options and session_key = so[:key]
+    #   result.select{ |k,v| target_keys.include?(k) }.uniq
+    # end
+    # alias_method_chain :parameters_for_signature, :select_mixi_keys
 
     def method
       result = super
